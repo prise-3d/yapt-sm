@@ -14,7 +14,8 @@ yapt_path = lambda wildcards, config: config["yapt_path"]
 
 rule all:
     input:
-        "results/stats_summary.csv"
+        "results/stats_summary.csv",
+        "results/stats_plot.png"
 
 # Rule to run yapt and process .exr files
 rule run_yapt:
@@ -84,3 +85,23 @@ rule aggregate_stats:
                     match = re.search(r"Avg:\s+([0-9.eE+-]+)", content)
                     mean = match.group(1) if match else "NaN"
                     out.write(f"{name},{mean}\n")
+
+rule plot_stats:
+    input:
+        "results/stats_summary.csv"
+    output:
+        "results/stats_plot.png"
+    run:
+        import pandas as pd
+        import seaborn as sns
+        import matplotlib.pyplot as plt
+
+        df = pd.read_csv(input[0])
+        sns.set(style="whitegrid")
+        plt.figure(figsize=(8, 4))
+        ax = sns.barplot(x="name", y="mean", data=df)
+        ax.set_title("Moyenne par test")
+        ax.set_ylabel("Mean")
+        ax.set_xlabel("Test")
+        plt.tight_layout()
+        plt.savefig(output[0])
