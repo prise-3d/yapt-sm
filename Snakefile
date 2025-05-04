@@ -3,18 +3,20 @@ import pandas as pd
 # Configuration
 configfile: "config.yaml"
 
-# Charger les paramètres du CSV
+# load paramters in the CSV
 df = pd.read_csv("params.csv", index_col="name")
-df.columns = df.columns.str.strip()  # Supprime les espaces autour des noms de colonnes
+df.columns = df.columns.str.strip()  # delete spaces in column names
 params = df.T.to_dict()
 
-# Chemin vers yapt
+# path to yapt
 yapt_path = lambda wildcards, config: config["yapt_path"]
+
 
 rule all:
     input:
         "results/stats_summary.csv"
 
+# Rule to run yapt and process .exr files
 rule run_yapt:
     output:
         mapfile="maps/{name}.txt"
@@ -32,21 +34,21 @@ rule run_yapt:
         mkdir -p {config[output_image_path]}
         {params.yapt}/yapt dir={params.tmpdir} {params.args}
 
-        # Trouver le seul fichier .exr produit
+        # Find the single .exr file produced
         exr_file=$(find {params.tmpdir} -maxdepth 1 -name "*.exr" | head -n 1)
 
         if [ -z "$exr_file" ]; then
-            echo "Aucun fichier .exr généré !" >&2
+            echo "No .exr file created!" >&2
             exit 1
         fi
 
-        # Extraire le nom du fichier seulement
+        # Extract only the file name
         filename=$(basename "$exr_file")
 
-        # Enregistrer le nom dans mapfile
+        # Save the name in mapfile
         echo "$filename" > {output.mapfile}
 
-        # Déplacer vers le dossier final
+        # Move to the final folder
         mv "$exr_file" {config[output_image_path]}/"$filename"
         """
 
@@ -60,7 +62,7 @@ rule extract_stats:
         import sys
         with open(input.mapfile) as f:
             image_name = f.read().strip()
-        print(f"→ Traitement de {image_name}", file=sys.stderr)
+        print(f"→ Processing {image_name}", file=sys.stderr)
         shell(f"""      
             oiiotool --stats {config['output_image_path']}/{image_name} | grep 'Avg' > {output[0]}
         """)
@@ -78,7 +80,7 @@ rule aggregate_stats:
                 name = infile.split("/")[-1].replace(".txt", "")
                 with open(infile) as f:
                     content = f.read()
-                    # Recherche le premier nombre après "Avg:"
+                    # Search for the first number after "Avg:"
                     match = re.search(r"Avg:\s+([0-9.eE+-]+)", content)
                     mean = match.group(1) if match else "NaN"
                     out.write(f"{name},{mean}\n")
