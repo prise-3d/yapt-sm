@@ -1,6 +1,6 @@
-name,source, spp, sampler, aggregator
-test1,../functions/unit_disk.func, 100, rnd, mc
-test2,../functions/unit_disk.func, 200, rnd, mc
-test3,../functions/unit_disk.func, 300, rnd, mc
-test4,../functions/unit_disk.func, 400, rnd, mc
+name,source,spp,sampler, aggregator
+test1,../functions/unit_disk.func,5,rnd,mc
+test2,../functions/unit_disk.func,10,rnd,mc
+test3,../functions/unit_disk.func,15,rnd,mc
+test4,../functions/unit_disk.func,20,rnd,mc
 
