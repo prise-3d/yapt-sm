@@ -65,7 +65,7 @@ rule extract_stats:
             image_name = f.read().strip()
         print(f"→ Processing {image_name}", file=sys.stderr)
         shell(f"""      
-            oiiotool --stats {config['output_image_path']}/{image_name} | grep 'Avg' > {output[0]}
+            oiiotool --stats {config['output_image_path']}/{image_name} > {output}
         """)
 
 rule aggregate_stats:
@@ -73,18 +73,33 @@ rule aggregate_stats:
         expand("stats/{name}.txt", name=params.keys())
     output:
         "results/stats_summary.csv"
+    params:
+        all_params=params
     run:
         import re
-        with open(output[0], "w") as out:
-            out.write("name,mean\n")
-            for infile in input:
-                name = infile.split("/")[-1].replace(".txt", "")
-                with open(infile) as f:
-                    content = f.read()
-                    # Search for the first number after "Avg:"
-                    match = re.search(r"Avg:\s+([0-9.eE+-]+)", content)
-                    mean = match.group(1) if match else "NaN"
-                    out.write(f"{name},{mean}\n")
+        import pandas as pd
+
+        rows = []
+        for infile in input:
+            name = infile.split("/")[-1].replace(".txt", "")
+            param = params["all_params"][name]
+
+            with open(infile) as f:
+                content = f.read()
+
+            stats = {}
+            for stat in ["Min", "Max", "Mean", "StdDev"]:
+                match = re.search(rf"{stat}:\s+([0-9.eE+-]+)", content)
+                stats[stat.lower()] = float(match.group(1)) if match else float("nan")
+
+            stats["name"] = name
+            stats["spp"] = param["spp"]
+            rows.append(stats)
+
+        df = pd.DataFrame(rows)
+        df = df[["name", "spp", "min", "max", "mean", "stddev"]]
+        df.to_csv(output[0], index=False)
+
 
 rule plot_stats:
     input:
@@ -97,11 +112,12 @@ rule plot_stats:
         import matplotlib.pyplot as plt
 
         df = pd.read_csv(input[0])
-        sns.set(style="whitegrid")
-        plt.figure(figsize=(8, 4))
-        ax = sns.barplot(x="name", y="mean", data=df)
-        ax.set_title("Moyenne par test")
-        ax.set_ylabel("Mean")
-        ax.set_xlabel("Test")
+        df_melted = df.melt(id_vars=["spp"], var_name="stat", value_name="value")
+
+        plt.figure(figsize=(10, 5))
+        sns.barplot(x="spp", y="value", hue="stat", data=df_melted)
+        plt.title("Statistiques par SPP")
+        plt.ylabel("Valeur")
+        plt.xlabel("Samples per pixel (SPP)")
         plt.tight_layout()
         plt.savefig(output[0])
