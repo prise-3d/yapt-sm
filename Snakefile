@@ -88,16 +88,17 @@ rule aggregate_stats:
                 content = f.read()
 
             stats = {}
-            for stat in ["Min", "Max", "Mean", "StdDev"]:
+            for stat in ["Min", "Max", "Avg", "StdDev"]:
                 match = re.search(rf"{stat}:\s+([0-9.eE+-]+)", content)
                 stats[stat.lower()] = float(match.group(1)) if match else float("nan")
 
             stats["name"] = name
             stats["spp"] = param["spp"]
             rows.append(stats)
+            print(f"→ {name}: Min={stats['min']}, Max={stats['max']}, Avg={stats['avg']}, StdDev={stats['stddev']}", file=sys.stderr)
 
         df = pd.DataFrame(rows)
-        df = df[["name", "spp", "min", "max", "mean", "stddev"]]
+        df = df[["name", "spp", "min", "max", "avg", "stddev"]]
         df.to_csv(output[0], index=False)
 
 
@@ -112,12 +113,15 @@ rule plot_stats:
         import matplotlib.pyplot as plt
 
         df = pd.read_csv(input[0])
-        df_melted = df.melt(id_vars=["spp"], var_name="stat", value_name="value")
+
+        # Filtrer uniquement la colonne 'avg'
+        df = df[["spp", "avg"]].sort_values("spp")
 
         plt.figure(figsize=(10, 5))
-        sns.barplot(x="spp", y="value", hue="stat", data=df_melted)
-        plt.title("Statistiques par SPP")
-        plt.ylabel("Valeur")
+        sns.lineplot(x="spp", y="avg", data=df, marker="o")
+        plt.title("Évolution de la moyenne en fonction du SPP")
+        plt.ylabel("Moyenne")
         plt.xlabel("Samples per pixel (SPP)")
+        plt.grid(True)
         plt.tight_layout()
         plt.savefig(output[0])
