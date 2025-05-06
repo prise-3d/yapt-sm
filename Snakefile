@@ -114,14 +114,20 @@ rule plot_stats:
 
         df = pd.read_csv(input[0])
 
-        # Filtrer uniquement la colonne 'avg'
-        df = df[["spp", "avg"]].sort_values("spp")
+        # Garder uniquement les colonnes utiles
+        df = df[["spp", "avg", "stddev"]].sort_values("spp")
 
         plt.figure(figsize=(10, 5))
-        sns.lineplot(x="spp", y="avg", data=df, marker="o")
+        sns.lineplot(x="spp", y="avg", data=df, marker="o", label="Moyenne")
+
+        # Tracer l'intervalle de confiance ±1 écart type
+        plt.fill_between(df["spp"], df["avg"] - df["stddev"], df["avg"] + df["stddev"],
+                         alpha=0.3, label="±1 écart type")
+
         plt.title("Évolution de la moyenne en fonction du SPP")
         plt.ylabel("Moyenne")
         plt.xlabel("Samples per pixel (SPP)")
         plt.grid(True)
+        plt.legend()
         plt.tight_layout()
         plt.savefig(output[0])
