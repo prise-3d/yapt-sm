@@ -96,11 +96,12 @@ rule aggregate_stats:
 
             stats["name"] = name
             stats["spp"] = param["spp"]
-            rows.append(stats)
-            print(f"→ {name}: Min={stats['min']}, Max={stats['max']}, Avg={stats['avg']}, StdDev={stats['stddev']}", file=sys.stderr)
+            stats["aggregator"] = param["aggregator"]
+            stats["sampler"] = param["sampler"]
+            rows.append(stats)            
 
         df = pd.DataFrame(rows)
-        df = df[["name", "spp", "min", "max", "avg", "stddev"]]
+        df = df[["name", "spp", "min", "max", "avg", "stddev", "aggregator", "sampler"]]
         df.to_csv(output[0], index=False)
 
 
