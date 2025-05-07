@@ -118,19 +118,24 @@ rule plot_stats:
         df = pd.read_csv(input[0])
 
         # Garder uniquement les colonnes utiles
-        df = df[["spp", "avg", "stddev"]].sort_values("spp")
+        df = df[["spp", "avg", "stddev", "aggregator"]].sort_values("spp")
 
         plt.figure(figsize=(10, 5))
-        sns.lineplot(x="spp", y="avg", data=df, marker="o", label="Moyenne")
+                # Plot one curve per aggregator
+        for aggregator, group in df.groupby("aggregator"):
+            group = group.sort_values("spp")
+            sns.lineplot(x="spp", y="avg", data=group, marker="o", label=aggregator)
+            plt.fill_between(group["spp"],
+                             group["avg"] - group["stddev"],
+                             group["avg"] + group["stddev"],
+                             alpha=0.3)
 
-        # Tracer l'intervalle de confiance ±1 écart type
-        plt.fill_between(df["spp"], df["avg"] - df["stddev"], df["avg"] + df["stddev"],
-                         alpha=0.3, label="±1 écart type")
-
-        plt.title("Évolution de la moyenne en fonction du SPP")
-        plt.ylabel("Moyenne")
+        plt.title("Mean vs SPP by Aggregator")
         plt.xlabel("Samples per pixel (SPP)")
+        plt.ylabel("Mean")
         plt.grid(True)
+        plt.xscale("log")
+        plt.axhline(y=3.14159/4, color='gray', linestyle='--', label='π/4')
         plt.legend()
         plt.tight_layout()
         plt.savefig(output[0])
