@@ -6,3 +6,6 @@ function_path: /home/samuel/git_prog/yapt/functions
 
 # path for storing the images
 output_image_path: images
+
+# params file
+params_files: params.csv

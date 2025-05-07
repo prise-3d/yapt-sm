@@ -4,7 +4,7 @@ import pandas as pd
 configfile: "config.yaml"
 
 # load paramters in the CSV
-df = pd.read_csv("params.csv", index_col="name")
+df = pd.read_csv(config["params_file"], index_col="name")
 df.columns = df.columns.str.strip()  # delete spaces in column names
 params = df.T.to_dict()
 
@@ -26,7 +26,9 @@ rule run_yapt:
         tmpdir=lambda wildcards: f"tmp/{wildcards.name}",
         args=lambda wildcards: (
             f"source={config['function_path']}/{params[wildcards.name]['source']} "
-            f"spp={params[wildcards.name]['spp']}"
+            f"spp={params[wildcards.name]['spp']} "
+            f"sampler={params[wildcards.name]['sampler']} "
+            f"aggregator={params[wildcards.name]['aggregator']} "                    
         )
     shell:
         r"""
@@ -131,3 +133,9 @@ rule plot_stats:
         plt.legend()
         plt.tight_layout()
         plt.savefig(output[0])
+
+rule clean:
+    shell:
+        """
+        rm -rf maps stats results tmp images
+        """        

@@ -1,6 +1,13 @@
-name,source,spp,sampler, aggregator
-test1,../functions/unit_disk.func,5,rnd,mc
-test2,../functions/unit_disk.func,10,rnd,mc
-test3,../functions/unit_disk.func,15,rnd,mc
-test4,../functions/unit_disk.func,20,rnd,mc
+name,source,spp,sampler,aggregator
+test1vor,../functions/unit_disk.func,10,sppp,vor
+test2vor,../functions/unit_disk.func,20,sppp,vor
+test3vor,../functions/unit_disk.func,40,sppp,vor
+test4vor,../functions/unit_disk.func,80,sppp,vor
+test5vor,../functions/unit_disk.func,160,sppp,vor
+test1mc,../functions/unit_disk.func,10,rnd,mc
+test2mc,../functions/unit_disk.func,20,rnd,mc
+test3mc,../functions/unit_disk.func,40,rnd,mc
+test4mc,../functions/unit_disk.func,80,rnd,mc
+test5mc,../functions/unit_disk.func,160,rnd,mc
+
 
