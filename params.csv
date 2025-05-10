@@ -49,12 +49,12 @@ test7nzvor,../functions/unit_disk.func,640,sppp,nzvor
 test8nzvor,../functions/unit_disk.func,1280,sppp,nzvor
 test9nzvor,../functions/unit_disk.func,2560,sppp,nzvor
 
-test1mc,../functions/unit_disk.func,10,rnd,mc
-test2mc,../functions/unit_disk.func,20,rnd,mc
-test3mc,../functions/unit_disk.func,40,rnd,mc
-test4mc,../functions/unit_disk.func,80,rnd,mc
-test5mc,../functions/unit_disk.func,160,rnd,mc
-test6mc,../functions/unit_disk.func,320,rnd,mc
-test7mc,../functions/unit_disk.func,640,rnd,mc
-test8mc,../functions/unit_disk.func,1280,rnd,mc
-test9mc,../functions/unit_disk.func,2560,rnd,mc
+f1_1mc,../functions/f1.func,10,rnd,mc
+f1_2mc,../functions/f1.func,20,rnd,mc
+f1_3mc,../functions/f1.func,40,rnd,mc
+f1_4mc,../functions/f1.func,80,rnd,mc
+f1_5mc,../functions/f1.func,160,rnd,mc
+f1_6mc,../functions/f1.func,320,rnd,mc
+f1_7mc,../functions/f1.func,640,rnd,mc
+f1_8mc,../functions/f1.func,1280,rnd,mc
+f1_9mc,../functions/f1.func,2560,rnd,mc

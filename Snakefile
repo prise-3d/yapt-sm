@@ -15,7 +15,8 @@ yapt_path = lambda wildcards, config: config["yapt_path"]
 rule all:
     input:
         "results/stats_summary.csv",
-        "results/stats_plot.png"
+        "results/plots_by_function/plot_unit_disk.png",
+        "results/plots_by_function/plot_f1.png"
 
 # Rule to run yapt and process .exr files
 rule run_yapt:
@@ -96,50 +97,70 @@ rule aggregate_stats:
 
             stats["name"] = name
             stats["spp"] = param["spp"]
+            stats["source"] = os.path.splitext(os.path.basename(param["source"]))[0]
             stats["aggregator"] = param["aggregator"]
             stats["sampler"] = param["sampler"]
             rows.append(stats)            
 
         df = pd.DataFrame(rows)
-        df = df[["name", "spp", "min", "max", "avg", "stddev", "aggregator", "sampler"]]
+        df = df[["name", "source", "spp", "min", "max", "avg", "stddev", "aggregator", "sampler"]]
         df.to_csv(output[0], index=False)
 
 
 rule plot_stats:
     input:
-        "results/stats_summary.csv"
+        stats="results/stats_summary.csv",
+        params="params.csv"
     output:
-        "results/stats_plot.png"
+        "results/plots_by_function/plot_{function}.png"
     run:
+        import matplotlib
+        matplotlib.use("Agg")
+
         import pandas as pd
         import seaborn as sns
         import matplotlib.pyplot as plt
+        import os
 
-        df = pd.read_csv(input[0])
+        function_name = wildcards.function
 
-        # Garder uniquement les colonnes utiles
-        df = df[["spp", "avg", "stddev", "aggregator"]].sort_values("spp")
-        df = df[df["spp"] > 100]
+        # Load and merge
+        df_stats = pd.read_csv(input.stats)
+        df_params = pd.read_csv(input.params)
+        df_params.columns = df_params.columns.str.strip()
+        extra_cols = [col for col in df_params.columns if col != "name" and col not in df_stats.columns]
+        df = pd.merge(df_stats, df_params[["name"] + extra_cols], on="name")
+        df.columns = df.columns.str.strip()
+
+        # Filter by function name
+        df = df[df["source"].str.contains(function_name)]
+
+        if df.empty:
+            raise ValueError(f"No data found for function '{function_name}'")
+
+        df = df.sort_values("spp")
+        df = df[df["spp"] > 1e3]
 
         plt.figure(figsize=(10, 5))
-                # Plot one curve per aggregator
-        for aggregator, group in df.groupby("aggregator"):
-            group = group.sort_values("spp")            
-            sns.lineplot(x="spp", y="avg", data=group, marker="o", label=aggregator)
-            plt.fill_between(group["spp"],
-                             group["avg"] - group["stddev"],
-                             group["avg"] + group["stddev"],
+        for aggregator, sub_group in df.groupby("aggregator"):
+            sub_group = sub_group.sort_values("spp")
+            sns.lineplot(x="spp", y="avg", data=sub_group, marker="o", label=aggregator)
+            plt.fill_between(sub_group["spp"],
+                             sub_group["avg"] - sub_group["stddev"],
+                             sub_group["avg"] + sub_group["stddev"],
                              alpha=0.3)
 
-        plt.title("Mean vs SPP by Aggregator")
+        plt.title(f"Mean vs SPP by Aggregator\nFunction: {function_name}")
         plt.xlabel("Samples per pixel (SPP)")
         plt.ylabel("Mean")
         plt.grid(True)
-        plt.xscale("log")
-        plt.axhline(y=3.14159/4, color='gray', linestyle='--', label='π/4')
         plt.legend()
+        plt.xscale("log")
         plt.tight_layout()
+
+        os.makedirs(os.path.dirname(output[0]), exist_ok=True)
         plt.savefig(output[0])
+        plt.close()
 
 rule clean:
     shell:
