@@ -16,7 +16,8 @@ rule all:
     input:
         "results/stats_summary.csv",
         "results/plots_by_function/plot_unit_disk.png",
-        "results/plots_by_function/plot_f1.png"
+        "results/plots_by_function/plot_f1.png",
+        "results/all_plots.pdf"
 
 # Rule to run yapt and process .exr files
 rule run_yapt:
@@ -139,7 +140,7 @@ rule plot_stats:
             raise ValueError(f"No data found for function '{function_name}'")
 
         df = df.sort_values("spp")
-        df = df[df["spp"] > 1e3]
+        df = df[df["spp"] > 10]
 
         plt.figure(figsize=(10, 5))
         for aggregator, sub_group in df.groupby("aggregator"):
@@ -161,6 +162,34 @@ rule plot_stats:
         os.makedirs(os.path.dirname(output[0]), exist_ok=True)
         plt.savefig(output[0])
         plt.close()
+
+import glob
+import matplotlib.pyplot as plt  # Added import for plt
+from matplotlib.backends.backend_pdf import PdfPages
+from PIL import Image        
+
+rule combine_plots:
+    input:
+        png_files=glob.glob("results/plots_by_function/*.png")
+    output:
+        "results/all_plots.pdf"
+    run:
+        import matplotlib
+        matplotlib.use("Agg")
+        from matplotlib.backends.backend_pdf import PdfPages
+        from PIL import Image
+        import os
+
+        # Création du PDF dans le répertoire 'results'
+        pdf_path = output[0]
+        with PdfPages(pdf_path) as pdf:
+            for img_path in input.png_files:
+                image = Image.open(img_path)
+                fig, ax = plt.subplots(figsize=(image.width / 100, image.height / 100))
+                ax.imshow(image)
+                ax.axis("off")  # Supprimer les axes
+                pdf.savefig(fig)
+                plt.close(fig)                
 
 rule clean:
     shell:
