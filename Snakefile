@@ -119,11 +119,12 @@ rule plot_stats:
 
         # Garder uniquement les colonnes utiles
         df = df[["spp", "avg", "stddev", "aggregator"]].sort_values("spp")
+        df = df[df["spp"] > 100]
 
         plt.figure(figsize=(10, 5))
                 # Plot one curve per aggregator
         for aggregator, group in df.groupby("aggregator"):
-            group = group.sort_values("spp")
+            group = group.sort_values("spp")            
             sns.lineplot(x="spp", y="avg", data=group, marker="o", label=aggregator)
             plt.fill_between(group["spp"],
                              group["avg"] - group["stddev"],
