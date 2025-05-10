@@ -37,7 +37,10 @@ rule run_yapt:
         set -x
         mkdir -p {params.tmpdir}
         mkdir -p {config[output_image_path]}
-        {params.yapt}/yapt dir={params.tmpdir} {params.args}
+        mkdir -p results/times
+
+        # Measure wall-clock time in seconds and store it
+        /usr/bin/time -f "%e" -o {output.timefile} {params.yapt}/yapt dir={params.tmpdir} {params.args}
 
         # Find the single .exr file produced
         exr_file=$(find {params.tmpdir} -maxdepth 1 -name "*.exr" | head -n 1)
