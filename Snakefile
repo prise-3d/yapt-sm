@@ -17,7 +17,11 @@ rule all:
         "results/stats_summary.csv",
         "results/plots_by_function/plot_unit_disk.png",
         "results/plots_by_function/plot_f1.png",
-        "results/all_plots.pdf"
+        "results/all_plots.pdf",
+        "results/stats_summary.csv",
+        "results/plots_by_function/plot_unit_disk.png",
+        "results/plots_by_function/plot_f1.png"
+        
 
 # Rule to run yapt and process .exr files
 rule run_yapt:
@@ -125,7 +129,7 @@ rule plot_stats:
         import pandas as pd
         import seaborn as sns
         import matplotlib.pyplot as plt
-        import os
+        import os        
 
         function_name = wildcards.function
 
