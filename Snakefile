@@ -22,7 +22,8 @@ rule all:
 # Rule to run yapt and process .exr files
 rule run_yapt:
     output:
-        mapfile="maps/{name}.txt"
+        mapfile="maps/{name}.txt",
+        timefile="results/times/{name}.txt"
     params:
         yapt=config["yapt_path"],
         tmpdir=lambda wildcards: f"tmp/{wildcards.name}",

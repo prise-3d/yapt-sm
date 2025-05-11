@@ -33,7 +33,7 @@ cd yapt-sm
 python3 -m venv snakemake
 source snakemake/bin/activate
 pip install --upgrade pip
-pip install snakemake pandas
+pip install snakemake pandas matplotlib
 ```
 
 ### 3. Install YAPT and OIIO
@@ -73,7 +73,7 @@ test2,scene2.ypt,20
 Once configured, run the full pipeline with:
 
 ```bash
-snakemake --cores 4
+snakemake --cores 4 --config params_file=params.csv
 ```
 
 ---
