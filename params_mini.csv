@@ -1,0 +1,17 @@
+name,source,spp,sampler,aggregator
+unit_disk_1mc,../functions/unit_disk.func,10,rnd,mc
+unit_disk_2mc,../functions/unit_disk.func,20,rnd,mc
+unit_disk_3mc,../functions/unit_disk.func,40,rnd,mc
+
+unit_disk_1vor,../functions/unit_disk.func,10,sppp,vor
+unit_disk_2vor,../functions/unit_disk.func,20,sppp,vor
+unit_disk_3vor,../functions/unit_disk.func,40,sppp,vor
+
+f1_1mc,../functions/f1.func,10,rnd,mc
+f1_2mc,../functions/f1.func,20,rnd,mc
+f1_3mc,../functions/f1.func,40,rnd,mc
+
+f1_1vor,../functions/f1.func,10,sppp,vor
+f1_2vor,../functions/f1.func,20,sppp,vor
+f1_3vor,../functions/f1.func,40,sppp,vor
+
