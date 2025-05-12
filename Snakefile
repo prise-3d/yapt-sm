@@ -20,7 +20,9 @@ rule all:
         "results/all_plots.pdf",
         "results/stats_summary.csv",
         "results/plots_by_function/plot_unit_disk.png",
-        "results/plots_by_function/plot_f1.png"
+        "results/plots_by_function/plot_f1.png",
+        "results/plots_by_function/plot_f2.png",
+        "results/plots_by_function/plot_disturbed_disk.png"
         
 
 # Rule to run yapt and process .exr files

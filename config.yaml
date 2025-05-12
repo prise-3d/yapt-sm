@@ -1,8 +1,8 @@
 # path for the YAPT executable
-yapt_path: /home/samuel/git_prog/yapt/build
+yapt_path: /home/sam/git_prog/yapt/build
 
 # path for the YAPT functions
-function_path: /home/samuel/git_prog/yapt/functions
+function_path: /home/sam/git_prog/yapt/functions
 
 # path for storing the images
 output_image_path: images
