@@ -133,7 +133,8 @@ rule plot_stats:
         import pandas as pd
         import seaborn as sns
         import matplotlib.pyplot as plt
-        import os        
+        import os
+        import math
 
         function_name = wildcards.function
 
@@ -151,29 +152,45 @@ rule plot_stats:
         if df.empty:
             raise ValueError(f"No data found for function '{function_name}'")
 
-        df = df.sort_values("spp")
-        df = df[df["spp"] > 10]
+        df = df[df["spp"] > 10].sort_values("spp")
 
-        plt.figure(figsize=(10, 5))
-        for aggregator, sub_group in df.groupby("aggregator"):
-            sub_group = sub_group.sort_values("spp")
-            sns.lineplot(x="spp", y="avg", data=sub_group, marker="o", label=aggregator)
-            plt.fill_between(sub_group["spp"],
-                             sub_group["avg"] - sub_group["stddev"],
-                             sub_group["avg"] + sub_group["stddev"],
-                             alpha=0.3)
+        aggregators = sorted(df["aggregator"].unique())
+        n = len(aggregators)
+        cols = 2
+        rows = math.ceil(n / cols)
 
-        plt.title(f"Mean vs SPP by Aggregator\nFunction: {function_name}")
-        plt.xlabel("Samples per pixel (SPP)")
-        plt.ylabel("Mean")
-        plt.grid(True)
-        plt.legend()
-        plt.xscale("log")
-        plt.tight_layout()
+        fig, axes = plt.subplots(rows, cols, figsize=(6 * cols, 4 * rows), squeeze=False)
+
+        for i, aggregator in enumerate(aggregators):
+            row, col = divmod(i, cols)
+            ax = axes[row][col]
+            sub_df = df[df["aggregator"] == aggregator]
+
+            for sampler, sub_group in sub_df.groupby("sampler"):
+                sub_group = sub_group.sort_values("spp")
+                sns.lineplot(ax=ax, x="spp", y="avg", data=sub_group, marker="o", label=sampler)
+                ax.fill_between(sub_group["spp"],
+                                sub_group["avg"] - sub_group["stddev"],
+                                sub_group["avg"] + sub_group["stddev"],
+                                alpha=0.3)
+
+            ax.set_title(f"Aggregator: {aggregator}")
+            ax.set_xscale("log")
+            ax.set_xlabel("Samples per pixel (SPP)")
+            ax.set_ylabel("Mean")
+            ax.grid(True)
+            ax.legend()
+
+        # Remove unused axes if any
+        for i in range(n, rows * cols):
+            fig.delaxes(axes[i // cols][i % cols])
+
+        fig.suptitle(f"Mean vs SPP by Sampler — Function: {function_name}", fontsize=14)
+        fig.tight_layout(rect=[0, 0.03, 1, 0.95])
 
         os.makedirs(os.path.dirname(output[0]), exist_ok=True)
-        plt.savefig(output[0])
-        plt.close()
+        fig.savefig(output[0])
+        plt.close(fig)
 
 import glob
 import matplotlib.pyplot as plt  # Added import for plt
