@@ -146,33 +146,48 @@ rule plot_stats:
         df = pd.merge(df_stats, df_params[["name"] + extra_cols], on="name")
         df.columns = df.columns.str.strip()
 
-        # Filter by function name
+        # Filter by function name and spp
         df = df[df["source"].str.contains(function_name)]
-
-        if df.empty:
-            raise ValueError(f"No data found for function '{function_name}'")
-
         df = df[df["spp"] > 10].sort_values("spp")
 
-        aggregators = sorted(df["aggregator"].unique())
-        n = len(aggregators)
+        if df.empty:
+            raise ValueError(f"Aucune donnée pour la fonction '{function_name}'")
+
+        # Séparer les agrégateurs
+        mc_df = df[df["aggregator"] == "mc"]
+        other_aggs = sorted(set(df["aggregator"]) - {"mc"})
+        n = len(other_aggs)
         cols = 2
         rows = math.ceil(n / cols)
 
         fig, axes = plt.subplots(rows, cols, figsize=(6 * cols, 4 * rows), squeeze=False)
 
-        for i, aggregator in enumerate(aggregators):
+        for i, aggregator in enumerate(other_aggs):
             row, col = divmod(i, cols)
             ax = axes[row][col]
-            sub_df = df[df["aggregator"] == aggregator]
 
-            for sampler, sub_group in sub_df.groupby("sampler"):
+            # Données pour cet agrégateur
+            agg_df = df[df["aggregator"] == aggregator]
+
+            # Courbes pour agrégateur courant
+            for sampler, sub_group in agg_df.groupby("sampler"):
                 sub_group = sub_group.sort_values("spp")
-                sns.lineplot(ax=ax, x="spp", y="avg", data=sub_group, marker="o", label=sampler)
+                sns.lineplot(ax=ax, x="spp", y="avg", data=sub_group, marker="o", label=f"{sampler}")
+
                 ax.fill_between(sub_group["spp"],
                                 sub_group["avg"] - sub_group["stddev"],
                                 sub_group["avg"] + sub_group["stddev"],
                                 alpha=0.3)
+
+            # Courbes pour 'mc' en référence
+            for sampler, sub_group in mc_df.groupby("sampler"):
+                sub_group = sub_group.sort_values("spp")
+                sns.lineplot(ax=ax, x="spp", y="avg", data=sub_group, linestyle="--", marker="x", label=f"mc/{sampler}")
+
+                ax.fill_between(sub_group["spp"],
+                                sub_group["avg"] - sub_group["stddev"],
+                                sub_group["avg"] + sub_group["stddev"],
+                                alpha=0.15)
 
             ax.set_title(f"Aggregator: {aggregator}")
             ax.set_xscale("log")
@@ -181,16 +196,17 @@ rule plot_stats:
             ax.grid(True)
             ax.legend()
 
-        # Remove unused axes if any
+        # Supprimer les axes non utilisés
         for i in range(n, rows * cols):
             fig.delaxes(axes[i // cols][i % cols])
 
-        fig.suptitle(f"Mean vs SPP by Sampler — Function: {function_name}", fontsize=14)
+        fig.suptitle(f"Mean vs SPP by Sampler — Function: {function_name}\n(mc shown on all)", fontsize=14)
         fig.tight_layout(rect=[0, 0.03, 1, 0.95])
 
         os.makedirs(os.path.dirname(output[0]), exist_ok=True)
         fig.savefig(output[0])
         plt.close(fig)
+
 
 import glob
 import matplotlib.pyplot as plt  # Added import for plt
