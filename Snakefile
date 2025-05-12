@@ -1,5 +1,7 @@
 import pandas as pd
 
+FUNCTIONS = ["unit_disk", "f1", "f2", "disturbed_disk"]
+
 # Configuration
 configfile: "config.yaml"
 
@@ -180,26 +182,27 @@ from PIL import Image
 
 rule combine_plots:
     input:
-        png_files=glob.glob("results/plots_by_function/*.png")
+        expand("results/plots_by_function/plot_{function}.png", function=FUNCTIONS)
     output:
         "results/all_plots.pdf"
     run:
         import matplotlib
         matplotlib.use("Agg")
         from matplotlib.backends.backend_pdf import PdfPages
+        import matplotlib.pyplot as plt
         from PIL import Image
         import os
 
-        # Création du PDF dans le répertoire 'results'
-        pdf_path = output[0]
-        with PdfPages(pdf_path) as pdf:
-            for img_path in input.png_files:
+        os.makedirs(os.path.dirname(output[0]), exist_ok=True)
+
+        with PdfPages(output[0]) as pdf:
+            for img_path in input:
                 image = Image.open(img_path)
                 fig, ax = plt.subplots(figsize=(image.width / 100, image.height / 100))
                 ax.imshow(image)
-                ax.axis("off")  # Supprimer les axes
+                ax.axis("off")
                 pdf.savefig(fig)
-                plt.close(fig)                
+                plt.close(fig)        
 
 rule clean:
     shell:
