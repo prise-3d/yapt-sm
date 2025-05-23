@@ -180,11 +180,12 @@ rule plot_stats:
         cols = 2
         rows = math.ceil(n / cols)
 
-        fig, axes = plt.subplots(rows, cols, figsize=(6 * cols, 4 * rows), squeeze=False)
+        # Créer une figure avec 2 rangées : une pour les moyennes, une pour les temps
+        fig = plt.figure(figsize=(6 * cols, 8 * rows))
 
+        # Première partie : graphiques des moyennes
         for i, aggregator in enumerate(other_aggs):
-            row, col = divmod(i, cols)
-            ax = axes[row][col]
+            ax = plt.subplot(2 * rows, cols, i + 1)
 
             # Données pour cet agrégateur
             agg_df = df[df["aggregator"] == aggregator]
@@ -209,22 +210,43 @@ rule plot_stats:
                                 sub_group["avg"] + sub_group["stddev"],
                                 alpha=0.15)
 
-            ax.set_title(f"Aggregator: {aggregator}")
+            ax.set_title(f"Mean - Aggregator: {aggregator}")
             ax.set_xscale("log")
             ax.set_xlabel("Samples per pixel (SPP)")
             ax.set_ylabel("Mean")
             ax.grid(True)
             ax.legend()
 
-        # Supprimer les axes non utilisés
-        for i in range(n, rows * cols):
-            fig.delaxes(axes[i // cols][i % cols])
+        # Deuxième partie : graphiques des temps d'exécution
+        for i, aggregator in enumerate(other_aggs):
+            ax = plt.subplot(2 * rows, cols, rows * cols + i + 1)
 
-        fig.suptitle(f"Mean vs SPP by Sampler — Function: {function_name}\n(mc shown on all)", fontsize=14)
+            # Données pour cet agrégateur
+            agg_df = df[df["aggregator"] == aggregator]
+
+            # Courbes pour agrégateur courant
+            for sampler, sub_group in agg_df.groupby("sampler"):
+                sub_group = sub_group.sort_values("spp")
+                sns.lineplot(ax=ax, x="spp", y="time", data=sub_group, marker="o", label=f"{sampler}")
+
+            # Courbes pour 'mc' en référence
+            for sampler, sub_group in mc_df.groupby("sampler"):
+                sub_group = sub_group.sort_values("spp")
+                sns.lineplot(ax=ax, x="spp", y="time", data=sub_group, linestyle="--", marker="x", label=f"mc/{sampler}")
+
+            ax.set_title(f"Execution Time - Aggregator: {aggregator}")
+            ax.set_xscale("log")
+            ax.set_yscale("log")  # Échelle log pour les temps aussi
+            ax.set_xlabel("Samples per pixel (SPP)")
+            ax.set_ylabel("Time (seconds)")
+            ax.grid(True)
+            ax.legend()
+
+        fig.suptitle(f"Mean & Execution Time vs SPP by Sampler — Function: {function_name}\n(mc shown on all)", fontsize=14)
         fig.tight_layout(rect=[0, 0.03, 1, 0.95])
 
         os.makedirs(os.path.dirname(output[0]), exist_ok=True)
-        fig.savefig(output[0])
+        fig.savefig(output[0], dpi=150, bbox_inches='tight')
         plt.close(fig)
 
 
