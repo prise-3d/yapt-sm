@@ -15,3 +15,18 @@ f1_1vor,../functions/f1.func,10,sppp,vor
 f1_2vor,../functions/f1.func,20,sppp,vor
 f1_3vor,../functions/f1.func,40,sppp,vor
 
+f2_1mc,../functions/f2.func,10,rnd,mc
+f2_2mc,../functions/f2.func,20,rnd,mc
+f2_3mc,../functions/f2.func,40,rnd,mc
+
+f2_1vor,../functions/f2.func,10,sppp,vor
+f2_2vor,../functions/f2.func,20,sppp,vor
+f2_3vor,../functions/f2.func,40,sppp,vor
+
+disturbed_disk_1mc,../functions/disturbed_disk.func,10,rnd,mc
+disturbed_disk_2mc,../functions/disturbed_disk.func,20,rnd,mc
+disturbed_disk_3mc,../functions/disturbed_disk.func,40,rnd,mc
+
+disturbed_disk_1vor,../functions/disturbed_disk.func,10,sppp,vor
+disturbed_disk_2vor,../functions/disturbed_disk.func,20,sppp,vor
+disturbed_disk_3vor,../functions/disturbed_disk.func,40,sppp,vor

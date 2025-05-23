@@ -5,13 +5,14 @@ FUNCTIONS = ["unit_disk", "f1", "f2", "disturbed_disk"]
 # Configuration
 configfile: "config.yaml"
 
-# load paramters in the CSV
+# Load paramètre CSV
 df = pd.read_csv(config["params_file"], index_col="name")
-df.columns = df.columns.str.strip()  # delete spaces in column names
+df.columns = df.columns.str.strip()  # Nettoyage des espaces dans les noms de colonnes
 params = df.T.to_dict()
 
-# path to yapt
-yapt_path = lambda wildcards, config: config["yapt_path"]
+# Extraire les fonctions depuis la colonne 'source' (en enlevant les extensions)
+FUNCTIONS = sorted(set(os.path.splitext(os.path.basename(src))[0] for src in df["source"]))
+print("Fonctions trouvées :", FUNCTIONS)
 
 
 rule all:
@@ -86,7 +87,8 @@ rule extract_stats:
 
 rule aggregate_stats:
     input:
-        expand("stats/{name}.txt", name=params.keys())
+        expand("stats/{name}.txt", name=params.keys()),
+        timefiles=expand("results/times/{name}.txt", name=params.keys())
     output:
         "results/stats_summary.csv"
     params:
@@ -94,19 +96,38 @@ rule aggregate_stats:
     run:
         import re
         import pandas as pd
+        import os
 
         rows = []
-        for infile in input:
-            name = infile.split("/")[-1].replace(".txt", "")
-            param = params["all_params"][name]
-
-            with open(infile) as f:
+        print("→ Aggregating stats from "f"{len(input[0])} files")
+        # display the list of files
+        print("→ Files:", input)
+        for stat_file in input:
+            name = os.path.basename(stat_file).replace(".txt", "")
+            print(f"→ Aggregating {name}")
+            all_params = params["all_params"]
+            if name not in all_params:
+                print("Nom de fichier inattendu :", name)
+                print("Fichier source :", stat_file)
+                print("Clés disponibles :", list(params.keys()))
+                raise ValueError(f"Paramètres introuvables pour {name}")
+            param = all_params[name]
+            # Lecture des stats .exr
+            with open(stat_file) as f:
                 content = f.read()
 
             stats = {}
             for stat in ["Min", "Max", "Avg", "StdDev"]:
                 match = re.search(rf"{stat}:\s+([0-9.eE+-]+)", content)
                 stats[stat.lower()] = float(match.group(1)) if match else float("nan")
+
+            # Lecture du temps d'exécution
+            time_file = f"results/times/{name}.txt"
+            try:
+                with open(time_file) as tf:
+                    stats["time"] = float(tf.read().strip())
+            except:
+                stats["time"] = float("nan")
 
             stats["name"] = name
             stats["spp"] = param["spp"]
@@ -116,9 +137,8 @@ rule aggregate_stats:
             rows.append(stats)            
 
         df = pd.DataFrame(rows)
-        df = df[["name", "source", "spp", "min", "max", "avg", "stddev", "aggregator", "sampler"]]
+        df = df[["name", "source", "spp", "min", "max", "avg", "stddev", "time", "aggregator", "sampler"]]
         df.to_csv(output[0], index=False)
-
 
 rule plot_stats:
     input:
