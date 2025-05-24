@@ -1,6 +1,6 @@
 import pandas as pd
 
-FUNCTIONS = ["unit_disk", "f1", "f2", "disturbed_disk"]
+FUNCTIONS = ["unit_disk", "f1", "f2", "disturbed_disk", "diamond", "periodical1", "periodical2", "periodical3", "periodical4"]
 
 # Configuration
 configfile: "config.yaml"
@@ -25,7 +25,12 @@ rule all:
         "results/plots_by_function/plot_unit_disk.png",
         "results/plots_by_function/plot_f1.png",
         "results/plots_by_function/plot_f2.png",
-        "results/plots_by_function/plot_disturbed_disk.png"
+        "results/plots_by_function/plot_disturbed_disk.png",
+        "results/plots_by_function/plot_diamond.png",
+        "results/plots_by_function/plot_periodical1.png",
+        "results/plots_by_function/plot_periodical2.png",
+        "results/plots_by_function/plot_periodical3.png",
+        "results/plots_by_function/plot_periodical4.png"
         
 
 # Rule to run yapt and process .exr files
@@ -144,11 +149,11 @@ rule aggregate_stats:
         df = df[["name", "source", "spp", "min", "max", "avg", "stddev", "time", "aggregator", "sampler"]]
         df.to_csv(output[0], index=False)
 
-        
+
 rule plot_stats:
     input:
         stats="results/stats_summary.csv",
-        params="params.csv"
+        params=config.get("params_file", "params.csv")
     output:
         "results/plots_by_function/plot_{function}.png"
     run:
@@ -165,90 +170,174 @@ rule plot_stats:
 
         # Load and merge
         df_stats = pd.read_csv(input.stats)
+        print(f"→ Stats CSV shape: {df_stats.shape}")
+        print(f"→ Stats CSV columns: {list(df_stats.columns)}")
+        print(f"→ Premier échantillon de stats:")
+        print(df_stats.head())
+        
         df_params = pd.read_csv(input.params)
         df_params.columns = df_params.columns.str.strip()
         extra_cols = [col for col in df_params.columns if col != "name" and col not in df_stats.columns]
         df = pd.merge(df_stats, df_params[["name"] + extra_cols], on="name")
         df.columns = df.columns.str.strip()
 
-        # Filter by function name and spp
-        df = df[df["source"].str.contains(function_name)]
-        df = df[df["spp"] > 10].sort_values("spp")
+        print(f"→ Recherche de données pour la fonction '{function_name}'")
+        print(f"→ DataFrame final shape: {df.shape}")
+        print(f"→ Colonnes du DataFrame: {list(df.columns)}")
+        print(f"→ Valeurs uniques dans 'source': {sorted(df['source'].unique())}")
+        print(f"→ Valeurs uniques dans 'spp': {sorted(df['spp'].unique())}")
+        
+        # Filter by function name - utiliser une correspondance exacte ET partielle
+        print(f"→ Tentative de correspondance exacte avec '{function_name}'")
+        df_filtered = df[df["source"] == function_name]
+        print(f"→ Correspondance exacte: {len(df_filtered)} lignes")
+        
+        if df_filtered.empty:
+            print(f"→ Tentative de correspondance partielle avec '{function_name}'")
+            df_filtered = df[df["source"].str.contains(function_name, case=False, na=False)]
+            print(f"→ Correspondance partielle: {len(df_filtered)} lignes")
+        
+        print(f"→ Données avant filtrage spp: {len(df_filtered)} lignes")
+        if not df_filtered.empty:
+            print(f"→ Valeurs spp pour cette fonction: {sorted(df_filtered['spp'].unique())}")
+        
+        # Filtrer par spp
+        df_filtered = df_filtered[df_filtered["spp"] > 10].sort_values("spp")
+        print(f"→ Données après filtrage spp > 10: {len(df_filtered)} lignes")
 
-        if df.empty:
-            raise ValueError(f"Aucune donnée pour la fonction '{function_name}'")
+        if df_filtered.empty:
+            print(f"→ Aucune donnée trouvée pour '{function_name}', création d'un graphique vide")
+            
+            # Créer un graphique vide avec un message d'information
+            fig, ax = plt.subplots(figsize=(10, 6))
+            ax.text(0.5, 0.5, f"Aucune donnée disponible\npour la fonction '{function_name}'", 
+                   ha='center', va='center', fontsize=16, 
+                   bbox=dict(boxstyle="round,pad=0.3", facecolor="lightgray"))
+            ax.set_xlim(0, 1)
+            ax.set_ylim(0, 1)
+            ax.set_title(f"Fonction: {function_name}", fontsize=14)
+            ax.axis('off')
+            
+            os.makedirs(os.path.dirname(output[0]), exist_ok=True)
+            fig.savefig(output[0], dpi=150, bbox_inches='tight')
+            plt.close(fig)
+            return
+
+        df = df_filtered
+        print(f"→ {len(df)} lignes de données trouvées pour '{function_name}'")
 
         # Séparer les agrégateurs
         mc_df = df[df["aggregator"] == "mc"]
         other_aggs = sorted(set(df["aggregator"]) - {"mc"})
-        n = len(other_aggs)
-        cols = 2
-        rows = math.ceil(n / cols)
-
-        # Créer une figure avec 2 rangées : une pour les moyennes, une pour les temps
-        fig = plt.figure(figsize=(6 * cols, 8 * rows))
-
-        # Première partie : graphiques des moyennes
-        for i, aggregator in enumerate(other_aggs):
-            ax = plt.subplot(2 * rows, cols, i + 1)
-
-            # Données pour cet agrégateur
-            agg_df = df[df["aggregator"] == aggregator]
-
-            # Courbes pour agrégateur courant
-            for sampler, sub_group in agg_df.groupby("sampler"):
+        
+        if not other_aggs:
+            print(f"→ Seules les données 'mc' trouvées pour '{function_name}'")
+            # Si seulement mc, créer un graphique simple
+            fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 8))
+            
+            # Graphique des moyennes
+            for sampler, sub_group in mc_df.groupby("sampler"):
                 sub_group = sub_group.sort_values("spp")
-                sns.lineplot(ax=ax, x="spp", y="avg", data=sub_group, marker="o", label=f"{sampler}")
-
-                ax.fill_between(sub_group["spp"],
+                sns.lineplot(ax=ax1, x="spp", y="avg", data=sub_group, marker="o", label=f"{sampler}")
+                ax1.fill_between(sub_group["spp"],
                                 sub_group["avg"] - sub_group["stddev"],
                                 sub_group["avg"] + sub_group["stddev"],
                                 alpha=0.3)
-
-            # Courbes pour 'mc' en référence
+            
+            ax1.set_title(f"Mean - Aggregator: mc")
+            ax1.set_xscale("log")
+            ax1.set_xlabel("Samples per pixel (SPP)")
+            ax1.set_ylabel("Mean")
+            ax1.grid(True)
+            ax1.legend()
+            
+            # Graphique des temps
             for sampler, sub_group in mc_df.groupby("sampler"):
                 sub_group = sub_group.sort_values("spp")
-                sns.lineplot(ax=ax, x="spp", y="avg", data=sub_group, linestyle="--", marker="x", label=f"mc/{sampler}")
+                sns.lineplot(ax=ax2, x="spp", y="time", data=sub_group, marker="o", label=f"{sampler}")
+            
+            ax2.set_title(f"Execution Time - Aggregator: mc")
+            ax2.set_xscale("log")
+            ax2.set_yscale("log")
+            ax2.set_xlabel("Samples per pixel (SPP)")
+            ax2.set_ylabel("Time (seconds)")
+            ax2.grid(True)
+            ax2.legend()
+            
+            fig.suptitle(f"Function: {function_name} (mc only)", fontsize=14)
+            fig.tight_layout(rect=[0, 0.03, 1, 0.95])
+            
+        else:
+            n = len(other_aggs)
+            cols = 2
+            rows = math.ceil(n / cols)
 
-                ax.fill_between(sub_group["spp"],
-                                sub_group["avg"] - sub_group["stddev"],
-                                sub_group["avg"] + sub_group["stddev"],
-                                alpha=0.15)
+            # Créer une figure avec 2 rangées : une pour les moyennes, une pour les temps
+            fig = plt.figure(figsize=(6 * cols, 8 * rows))
 
-            ax.set_title(f"Mean - Aggregator: {aggregator}")
-            ax.set_xscale("log")
-            ax.set_xlabel("Samples per pixel (SPP)")
-            ax.set_ylabel("Mean")
-            ax.grid(True)
-            ax.legend()
+            # Première partie : graphiques des moyennes
+            for i, aggregator in enumerate(other_aggs):
+                ax = plt.subplot(2 * rows, cols, i + 1)
 
-        # Deuxième partie : graphiques des temps d'exécution
-        for i, aggregator in enumerate(other_aggs):
-            ax = plt.subplot(2 * rows, cols, rows * cols + i + 1)
+                # Données pour cet agrégateur
+                agg_df = df[df["aggregator"] == aggregator]
 
-            # Données pour cet agrégateur
-            agg_df = df[df["aggregator"] == aggregator]
+                # Courbes pour agrégateur courant
+                for sampler, sub_group in agg_df.groupby("sampler"):
+                    sub_group = sub_group.sort_values("spp")
+                    sns.lineplot(ax=ax, x="spp", y="avg", data=sub_group, marker="o", label=f"{sampler}")
 
-            # Courbes pour agrégateur courant
-            for sampler, sub_group in agg_df.groupby("sampler"):
-                sub_group = sub_group.sort_values("spp")
-                sns.lineplot(ax=ax, x="spp", y="time", data=sub_group, marker="o", label=f"{sampler}")
+                    ax.fill_between(sub_group["spp"],
+                                    sub_group["avg"] - sub_group["stddev"],
+                                    sub_group["avg"] + sub_group["stddev"],
+                                    alpha=0.3)
 
-            # Courbes pour 'mc' en référence
-            for sampler, sub_group in mc_df.groupby("sampler"):
-                sub_group = sub_group.sort_values("spp")
-                sns.lineplot(ax=ax, x="spp", y="time", data=sub_group, linestyle="--", marker="x", label=f"mc/{sampler}")
+                # Courbes pour 'mc' en référence (si disponible)
+                if not mc_df.empty:
+                    for sampler, sub_group in mc_df.groupby("sampler"):
+                        sub_group = sub_group.sort_values("spp")
+                        sns.lineplot(ax=ax, x="spp", y="avg", data=sub_group, linestyle="--", marker="x", label=f"mc/{sampler}")
 
-            ax.set_title(f"Execution Time - Aggregator: {aggregator}")
-            ax.set_xscale("log")
-            ax.set_yscale("log")  # Échelle log pour les temps aussi
-            ax.set_xlabel("Samples per pixel (SPP)")
-            ax.set_ylabel("Time (seconds)")
-            ax.grid(True)
-            ax.legend()
+                        ax.fill_between(sub_group["spp"],
+                                        sub_group["avg"] - sub_group["stddev"],
+                                        sub_group["avg"] + sub_group["stddev"],
+                                        alpha=0.15)
 
-        fig.suptitle(f"Mean & Execution Time vs SPP by Sampler — Function: {function_name}\n(mc shown on all)", fontsize=14)
-        fig.tight_layout(rect=[0, 0.03, 1, 0.95])
+                ax.set_title(f"Mean - Aggregator: {aggregator}")
+                ax.set_xscale("log")
+                ax.set_xlabel("Samples per pixel (SPP)")
+                ax.set_ylabel("Mean")
+                ax.grid(True)
+                ax.legend()
+
+            # Deuxième partie : graphiques des temps d'exécution
+            for i, aggregator in enumerate(other_aggs):
+                ax = plt.subplot(2 * rows, cols, rows * cols + i + 1)
+
+                # Données pour cet agrégateur
+                agg_df = df[df["aggregator"] == aggregator]
+
+                # Courbes pour agrégateur courant
+                for sampler, sub_group in agg_df.groupby("sampler"):
+                    sub_group = sub_group.sort_values("spp")
+                    sns.lineplot(ax=ax, x="spp", y="time", data=sub_group, marker="o", label=f"{sampler}")
+
+                # Courbes pour 'mc' en référence (si disponible)
+                if not mc_df.empty:
+                    for sampler, sub_group in mc_df.groupby("sampler"):
+                        sub_group = sub_group.sort_values("spp")
+                        sns.lineplot(ax=ax, x="spp", y="time", data=sub_group, linestyle="--", marker="x", label=f"mc/{sampler}")
+
+                ax.set_title(f"Execution Time - Aggregator: {aggregator}")
+                ax.set_xscale("log")
+                ax.set_yscale("log")
+                ax.set_xlabel("Samples per pixel (SPP)")
+                ax.set_ylabel("Time (seconds)")
+                ax.grid(True)
+                ax.legend()
+
+            fig.suptitle(f"Mean & Execution Time vs SPP by Sampler — Function: {function_name}\n(mc shown on all)", fontsize=14)
+            fig.tight_layout(rect=[0, 0.03, 1, 0.95])
 
         os.makedirs(os.path.dirname(output[0]), exist_ok=True)
         fig.savefig(output[0], dpi=150, bbox_inches='tight')
