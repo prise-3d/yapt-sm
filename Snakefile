@@ -87,7 +87,7 @@ rule extract_stats:
 
 rule aggregate_stats:
     input:
-        expand("stats/{name}.txt", name=params.keys()),
+        statfiles=expand("stats/{name}.txt", name=params.keys()),
         timefiles=expand("results/times/{name}.txt", name=params.keys())
     output:
         "results/stats_summary.csv"
@@ -99,10 +99,13 @@ rule aggregate_stats:
         import os
 
         rows = []
-        print("→ Aggregating stats from "f"{len(input[0])} files")
+        print(f"→ Aggregating stats from {len(input.statfiles)} files")
         # display the list of files
-        print("→ Files:", input)
-        for stat_file in input:
+        print("→ Stat files:", input.statfiles)
+        print("→ Time files:", input.timefiles)
+        
+        # Itérer seulement sur les fichiers de statistiques
+        for stat_file in input.statfiles:
             name = os.path.basename(stat_file).replace(".txt", "")
             print(f"→ Aggregating {name}")
             all_params = params["all_params"]
@@ -112,6 +115,7 @@ rule aggregate_stats:
                 print("Clés disponibles :", list(params.keys()))
                 raise ValueError(f"Paramètres introuvables pour {name}")
             param = all_params[name]
+            
             # Lecture des stats .exr
             with open(stat_file) as f:
                 content = f.read()
@@ -140,6 +144,7 @@ rule aggregate_stats:
         df = df[["name", "source", "spp", "min", "max", "avg", "stddev", "time", "aggregator", "sampler"]]
         df.to_csv(output[0], index=False)
 
+        
 rule plot_stats:
     input:
         stats="results/stats_summary.csv",
