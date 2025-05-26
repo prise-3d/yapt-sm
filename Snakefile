@@ -1,6 +1,11 @@
 import pandas as pd
 
-FUNCTIONS = ["unit_disk", "f1", "f2", "disturbed_disk", "diamond", "periodical1", "periodical2", "periodical3", "periodical4"]
+import os
+FUNCTIONS = [
+    "unit_disk", "f1", "f2", "disturbed_disk", "diamond",
+    "periodical1", "periodical2", "periodical3", "periodical4",
+    "gaussian", "ellipse", "fractal1", "fractal2", "hard1", "hard2"
+]
 
 # Configuration
 configfile: "config.yaml"
@@ -30,7 +35,13 @@ rule all:
         "results/plots_by_function/plot_periodical1.png",
         "results/plots_by_function/plot_periodical2.png",
         "results/plots_by_function/plot_periodical3.png",
-        "results/plots_by_function/plot_periodical4.png"
+        "results/plots_by_function/plot_periodical4.png",
+        "results/plots_by_function/plot_gaussian.png",
+        "results/plots_by_function/plot_ellipse.png",
+        "results/plots_by_function/plot_fractal1.png",
+        "results/plots_by_function/plot_fractal2.png",
+        "results/plots_by_function/plot_hard1.png",
+        "results/plots_by_function/plot_hard2.png"
         
 
 # Rule to run yapt and process .exr files
