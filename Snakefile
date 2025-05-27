@@ -27,21 +27,8 @@ rule all:
         "results/plots_by_function/plot_f1.png",
         "results/all_plots.pdf",
         "results/stats_summary.csv",
-        "results/plots_by_function/plot_unit_disk.png",
-        "results/plots_by_function/plot_f1.png",
-        "results/plots_by_function/plot_f2.png",
-        "results/plots_by_function/plot_disturbed_disk.png",
-        "results/plots_by_function/plot_diamond.png",
-        "results/plots_by_function/plot_periodical1.png",
-        "results/plots_by_function/plot_periodical2.png",
-        "results/plots_by_function/plot_periodical3.png",
-        "results/plots_by_function/plot_periodical4.png",
-        "results/plots_by_function/plot_gaussian.png",
-        "results/plots_by_function/plot_ellipse.png",
-        "results/plots_by_function/plot_fractal1.png",
-        "results/plots_by_function/plot_fractal2.png",
-        "results/plots_by_function/plot_hard1.png",
-        "results/plots_by_function/plot_hard2.png"
+        "results/tables.md",
+        expand("results/plots_by_function/plot_{function}.png", function=FUNCTIONS)
         
 
 # Rule to run yapt and process .exr files
@@ -383,6 +370,90 @@ rule combine_plots:
                 ax.axis("off")
                 pdf.savefig(fig)
                 plt.close(fig)        
+
+rule generate_markdown_tables:
+    input:
+        stats="results/stats_summary.csv",
+        params=config.get("params_file", "params.csv")
+    output:
+        "results/tables.md"
+    run:
+        import pandas as pd
+        import os
+        
+        # Charger les données
+        df_stats = pd.read_csv(input.stats)
+        df_params = pd.read_csv(input.params)
+        df_params.columns = df_params.columns.str.strip()
+        
+        # Fusionner les données
+        extra_cols = [col for col in df_params.columns if col != "name" and col not in df_stats.columns]
+        df = pd.merge(df_stats, df_params[["name"] + extra_cols], on="name")
+        df.columns = df.columns.str.strip()
+        
+        # Début du document Markdown
+        md_content = [
+            "# Résultats des intégrateurs par fonction",
+            "",
+            f"Rapport généré automatiquement à partir de {len(df)} configurations.",
+            ""
+        ]
+        
+        # Pour chaque fonction
+        functions = sorted(df["source"].unique())
+        
+        for function_name in functions:
+            df_function = df[df["source"] == function_name]
+            
+            if df_function.empty:
+                continue
+                
+            md_content.extend([
+                f"## Fonction: {function_name}",
+                ""
+            ])
+            
+            # Grouper par agrégateur
+            aggregators = sorted(df_function["aggregator"].unique())
+            
+            for aggregator in aggregators:
+                df_agg = df_function[df_function["aggregator"] == aggregator]
+                
+                if df_agg.empty:
+                    continue
+                
+                md_content.extend([
+                    f"### Agrégateur: {aggregator}",
+                    ""
+                ])
+                
+                # En-tête du tableau
+                md_content.extend([
+                    "| Sampler | SPP | Moyenne | Écart-type | Temps (s) |",
+                    "|---------|-----|---------|------------|-----------|"
+                ])
+                
+                # Trier par sampler puis par spp
+                df_agg_sorted = df_agg.sort_values(["sampler", "spp"])
+                
+                for _, row in df_agg_sorted.iterrows():
+                    sampler = row["sampler"]
+                    spp = int(row["spp"])
+                    avg = f"{row['avg']:.6f}"
+                    stddev = f"{row['stddev']:.6f}"
+                    time_val = f"{row['time']:.3f}"
+                    
+                    md_content.append(f"| {sampler} | {spp} | {avg} | {stddev} | {time_val} |")
+                
+                md_content.append("")  # Ligne vide après chaque tableau
+        
+        # Écrire le fichier
+        os.makedirs(os.path.dirname(output[0]), exist_ok=True)
+        with open(output[0], 'w', encoding='utf-8') as f:
+            f.write('\n'.join(md_content))
+        
+        print(f"Fichier Markdown généré : {output[0]}")
+               
 
 rule clean:
     shell:
