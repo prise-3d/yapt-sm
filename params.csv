@@ -29,15 +29,15 @@ unit_disk_7fvor,../functions/unit_disk.func,640,sppp,fvor
 unit_disk_8fvor,../functions/unit_disk.func,1280,sppp,fvor
 unit_disk_9fvor,../functions/unit_disk.func,2560,sppp,fvor
 
-unit_disk_1ivor,../functions/unit_disk.func,10,sppp,ivor
-unit_disk_2ivor,../functions/unit_disk.func,20,sppp,ivor
-unit_disk_3ivor,../functions/unit_disk.func,40,sppp,ivor
-unit_disk_4ivor,../functions/unit_disk.func,80,sppp,ivor
-unit_disk_5ivor,../functions/unit_disk.func,160,sppp,ivor
-unit_disk_6ivor,../functions/unit_disk.func,320,sppp,ivor
-unit_disk_7ivor,../functions/unit_disk.func,640,sppp,ivor
-unit_disk_8ivor,../functions/unit_disk.func,1280,sppp,ivor
-unit_disk_9ivor,../functions/unit_disk.func,2560,sppp,ivor
+unit_disk_1cvor,../functions/unit_disk.func,10,sppp,cvor
+unit_disk_2cvor,../functions/unit_disk.func,20,sppp,cvor
+unit_disk_3cvor,../functions/unit_disk.func,40,sppp,cvor
+unit_disk_4cvor,../functions/unit_disk.func,80,sppp,cvor
+unit_disk_5cvor,../functions/unit_disk.func,160,sppp,cvor
+unit_disk_6cvor,../functions/unit_disk.func,320,sppp,cvor
+unit_disk_7cvor,../functions/unit_disk.func,640,sppp,cvor
+unit_disk_8cvor,../functions/unit_disk.func,1280,sppp,cvor
+unit_disk_9cvor,../functions/unit_disk.func,2560,sppp,cvor
 
 unit_disk_1nzvor,../functions/unit_disk.func,10,sppp,nzvor
 unit_disk_2nzvor,../functions/unit_disk.func,20,sppp,nzvor
@@ -79,15 +79,15 @@ f1_7fvor,../functions/f1.func,640,sppp,fvor
 f1_8fvor,../functions/f1.func,1280,sppp,fvor
 f1_9fvor,../functions/f1.func,2560,sppp,fvor
 
-f1_1ivor,../functions/f1.func,10,sppp,ivor
-f1_2ivor,../functions/f1.func,20,sppp,ivor
-f1_3ivor,../functions/f1.func,40,sppp,ivor
-f1_4ivor,../functions/f1.func,80,sppp,ivor
-f1_5ivor,../functions/f1.func,160,sppp,ivor
-f1_6ivor,../functions/f1.func,320,sppp,ivor
-f1_7ivor,../functions/f1.func,640,sppp,ivor
-f1_8ivor,../functions/f1.func,1280,sppp,ivor
-f1_9ivor,../functions/f1.func,2560,sppp,ivor
+f1_1cvor,../functions/f1.func,10,sppp,cvor
+f1_2cvor,../functions/f1.func,20,sppp,cvor
+f1_3cvor,../functions/f1.func,40,sppp,cvor
+f1_4cvor,../functions/f1.func,80,sppp,cvor
+f1_5cvor,../functions/f1.func,160,sppp,cvor
+f1_6cvor,../functions/f1.func,320,sppp,cvor
+f1_7cvor,../functions/f1.func,640,sppp,cvor
+f1_8cvor,../functions/f1.func,1280,sppp,cvor
+f1_9cvor,../functions/f1.func,2560,sppp,cvor
 
 f1_1nzvor,../functions/f1.func,10,sppp,nzvor
 f1_2nzvor,../functions/f1.func,20,sppp,nzvor
@@ -129,15 +129,15 @@ f2_7fvor,../functions/f2.func,640,sppp,fvor
 f2_8fvor,../functions/f2.func,1280,sppp,fvor
 f2_9fvor,../functions/f2.func,2560,sppp,fvor
 
-f2_1ivor,../functions/f2.func,10,sppp,ivor
-f2_2ivor,../functions/f2.func,20,sppp,ivor
-f2_3ivor,../functions/f2.func,40,sppp,ivor
-f2_4ivor,../functions/f2.func,80,sppp,ivor
-f2_5ivor,../functions/f2.func,160,sppp,ivor
-f2_6ivor,../functions/f2.func,320,sppp,ivor
-f2_7ivor,../functions/f2.func,640,sppp,ivor
-f2_8ivor,../functions/f2.func,1280,sppp,ivor
-f2_9ivor,../functions/f2.func,2560,sppp,ivor
+f2_1cvor,../functions/f2.func,10,sppp,cvor
+f2_2cvor,../functions/f2.func,20,sppp,cvor
+f2_3cvor,../functions/f2.func,40,sppp,cvor
+f2_4cvor,../functions/f2.func,80,sppp,cvor
+f2_5cvor,../functions/f2.func,160,sppp,cvor
+f2_6cvor,../functions/f2.func,320,sppp,cvor
+f2_7cvor,../functions/f2.func,640,sppp,cvor
+f2_8cvor,../functions/f2.func,1280,sppp,cvor
+f2_9cvor,../functions/f2.func,2560,sppp,cvor
 
 f2_1nzvor,../functions/f2.func,10,sppp,nzvor
 f2_2nzvor,../functions/f2.func,20,sppp,nzvor
@@ -179,15 +179,15 @@ disturbed_disk_7fvor,../functions/disturbed_disk.func,640,sppp,fvor
 disturbed_disk_8fvor,../functions/disturbed_disk.func,1280,sppp,fvor
 disturbed_disk_9fvor,../functions/disturbed_disk.func,2560,sppp,fvor
 
-disturbed_disk_1ivor,../functions/disturbed_disk.func,10,sppp,ivor
-disturbed_disk_2ivor,../functions/disturbed_disk.func,20,sppp,ivor
-disturbed_disk_3ivor,../functions/disturbed_disk.func,40,sppp,ivor
-disturbed_disk_4ivor,../functions/disturbed_disk.func,80,sppp,ivor
-disturbed_disk_5ivor,../functions/disturbed_disk.func,160,sppp,ivor
-disturbed_disk_6ivor,../functions/disturbed_disk.func,320,sppp,ivor
-disturbed_disk_7ivor,../functions/disturbed_disk.func,640,sppp,ivor
-disturbed_disk_8ivor,../functions/disturbed_disk.func,1280,sppp,ivor
-disturbed_disk_9ivor,../functions/disturbed_disk.func,2560,sppp,ivor
+disturbed_disk_1cvor,../functions/disturbed_disk.func,10,sppp,cvor
+disturbed_disk_2cvor,../functions/disturbed_disk.func,20,sppp,cvor
+disturbed_disk_3cvor,../functions/disturbed_disk.func,40,sppp,cvor
+disturbed_disk_4cvor,../functions/disturbed_disk.func,80,sppp,cvor
+disturbed_disk_5cvor,../functions/disturbed_disk.func,160,sppp,cvor
+disturbed_disk_6cvor,../functions/disturbed_disk.func,320,sppp,cvor
+disturbed_disk_7cvor,../functions/disturbed_disk.func,640,sppp,cvor
+disturbed_disk_8cvor,../functions/disturbed_disk.func,1280,sppp,cvor
+disturbed_disk_9cvor,../functions/disturbed_disk.func,2560,sppp,cvor
 
 disturbed_disk_1nzvor,../functions/disturbed_disk.func,10,sppp,nzvor
 disturbed_disk_2nzvor,../functions/disturbed_disk.func,20,sppp,nzvor
@@ -229,15 +229,15 @@ periodical1_7fvor,../functions/periodical1.func,640,sppp,fvor
 periodical1_8fvor,../functions/periodical1.func,1280,sppp,fvor
 periodical1_9fvor,../functions/periodical1.func,2560,sppp,fvor
 
-periodical1_1ivor,../functions/periodical1.func,10,sppp,ivor
-periodical1_2ivor,../functions/periodical1.func,20,sppp,ivor
-periodical1_3ivor,../functions/periodical1.func,40,sppp,ivor
-periodical1_4ivor,../functions/periodical1.func,80,sppp,ivor
-periodical1_5ivor,../functions/periodical1.func,160,sppp,ivor
-periodical1_6ivor,../functions/periodical1.func,320,sppp,ivor
-periodical1_7ivor,../functions/periodical1.func,640,sppp,ivor
-periodical1_8ivor,../functions/periodical1.func,1280,sppp,ivor
-periodical1_9ivor,../functions/periodical1.func,2560,sppp,ivor
+periodical1_1cvor,../functions/periodical1.func,10,sppp,cvor
+periodical1_2cvor,../functions/periodical1.func,20,sppp,cvor
+periodical1_3cvor,../functions/periodical1.func,40,sppp,cvor
+periodical1_4cvor,../functions/periodical1.func,80,sppp,cvor
+periodical1_5cvor,../functions/periodical1.func,160,sppp,cvor
+periodical1_6cvor,../functions/periodical1.func,320,sppp,cvor
+periodical1_7cvor,../functions/periodical1.func,640,sppp,cvor
+periodical1_8cvor,../functions/periodical1.func,1280,sppp,cvor
+periodical1_9cvor,../functions/periodical1.func,2560,sppp,cvor
 
 periodical1_1nzvor,../functions/periodical1.func,10,sppp,nzvor
 periodical1_2nzvor,../functions/periodical1.func,20,sppp,nzvor
@@ -279,15 +279,15 @@ periodical2_7fvor,../functions/periodical2.func,640,sppp,fvor
 periodical2_8fvor,../functions/periodical2.func,1280,sppp,fvor
 periodical2_9fvor,../functions/periodical2.func,2560,sppp,fvor
 
-periodical2_1ivor,../functions/periodical2.func,10,sppp,ivor
-periodical2_2ivor,../functions/periodical2.func,20,sppp,ivor
-periodical2_3ivor,../functions/periodical2.func,40,sppp,ivor
-periodical2_4ivor,../functions/periodical2.func,80,sppp,ivor
-periodical2_5ivor,../functions/periodical2.func,160,sppp,ivor
-periodical2_6ivor,../functions/periodical2.func,320,sppp,ivor
-periodical2_7ivor,../functions/periodical2.func,640,sppp,ivor
-periodical2_8ivor,../functions/periodical2.func,1280,sppp,ivor
-periodical2_9ivor,../functions/periodical2.func,2560,sppp,ivor
+periodical2_1cvor,../functions/periodical2.func,10,sppp,cvor
+periodical2_2cvor,../functions/periodical2.func,20,sppp,cvor
+periodical2_3cvor,../functions/periodical2.func,40,sppp,cvor
+periodical2_4cvor,../functions/periodical2.func,80,sppp,cvor
+periodical2_5cvor,../functions/periodical2.func,160,sppp,cvor
+periodical2_6cvor,../functions/periodical2.func,320,sppp,cvor
+periodical2_7cvor,../functions/periodical2.func,640,sppp,cvor
+periodical2_8cvor,../functions/periodical2.func,1280,sppp,cvor
+periodical2_9cvor,../functions/periodical2.func,2560,sppp,cvor
 
 periodical2_1nzvor,../functions/periodical2.func,10,sppp,nzvor
 periodical2_2nzvor,../functions/periodical2.func,20,sppp,nzvor
@@ -329,15 +329,15 @@ periodical3_7fvor,../functions/periodical3.func,640,sppp,fvor
 periodical3_8fvor,../functions/periodical3.func,1280,sppp,fvor
 periodical3_9fvor,../functions/periodical3.func,2560,sppp,fvor
 
-periodical3_1ivor,../functions/periodical3.func,10,sppp,ivor
-periodical3_2ivor,../functions/periodical3.func,20,sppp,ivor
-periodical3_3ivor,../functions/periodical3.func,40,sppp,ivor
-periodical3_4ivor,../functions/periodical3.func,80,sppp,ivor
-periodical3_5ivor,../functions/periodical3.func,160,sppp,ivor
-periodical3_6ivor,../functions/periodical3.func,320,sppp,ivor
-periodical3_7ivor,../functions/periodical3.func,640,sppp,ivor
-periodical3_8ivor,../functions/periodical3.func,1280,sppp,ivor
-periodical3_9ivor,../functions/periodical3.func,2560,sppp,ivor
+periodical3_1cvor,../functions/periodical3.func,10,sppp,cvor
+periodical3_2cvor,../functions/periodical3.func,20,sppp,cvor
+periodical3_3cvor,../functions/periodical3.func,40,sppp,cvor
+periodical3_4cvor,../functions/periodical3.func,80,sppp,cvor
+periodical3_5cvor,../functions/periodical3.func,160,sppp,cvor
+periodical3_6cvor,../functions/periodical3.func,320,sppp,cvor
+periodical3_7cvor,../functions/periodical3.func,640,sppp,cvor
+periodical3_8cvor,../functions/periodical3.func,1280,sppp,cvor
+periodical3_9cvor,../functions/periodical3.func,2560,sppp,cvor
 
 periodical3_1nzvor,../functions/periodical3.func,10,sppp,nzvor
 periodical3_2nzvor,../functions/periodical3.func,20,sppp,nzvor
@@ -379,15 +379,15 @@ periodical4_7fvor,../functions/periodical4.func,640,sppp,fvor
 periodical4_8fvor,../functions/periodical4.func,1280,sppp,fvor
 periodical4_9fvor,../functions/periodical4.func,2560,sppp,fvor
 
-periodical4_1ivor,../functions/periodical4.func,10,sppp,ivor
-periodical4_2ivor,../functions/periodical4.func,20,sppp,ivor
-periodical4_3ivor,../functions/periodical4.func,40,sppp,ivor
-periodical4_4ivor,../functions/periodical4.func,80,sppp,ivor
-periodical4_5ivor,../functions/periodical4.func,160,sppp,ivor
-periodical4_6ivor,../functions/periodical4.func,320,sppp,ivor
-periodical4_7ivor,../functions/periodical4.func,640,sppp,ivor
-periodical4_8ivor,../functions/periodical4.func,1280,sppp,ivor
-periodical4_9ivor,../functions/periodical4.func,2560,sppp,ivor
+periodical4_1cvor,../functions/periodical4.func,10,sppp,cvor
+periodical4_2cvor,../functions/periodical4.func,20,sppp,cvor
+periodical4_3cvor,../functions/periodical4.func,40,sppp,cvor
+periodical4_4cvor,../functions/periodical4.func,80,sppp,cvor
+periodical4_5cvor,../functions/periodical4.func,160,sppp,cvor
+periodical4_6cvor,../functions/periodical4.func,320,sppp,cvor
+periodical4_7cvor,../functions/periodical4.func,640,sppp,cvor
+periodical4_8cvor,../functions/periodical4.func,1280,sppp,cvor
+periodical4_9cvor,../functions/periodical4.func,2560,sppp,cvor
 
 periodical4_1nzvor,../functions/periodical4.func,10,sppp,nzvor
 periodical4_2nzvor,../functions/periodical4.func,20,sppp,nzvor
@@ -429,15 +429,15 @@ diamond_7fvor,../functions/diamond.func,640,sppp,fvor
 diamond_8fvor,../functions/diamond.func,1280,sppp,fvor
 diamond_9fvor,../functions/diamond.func,2560,sppp,fvor
 
-diamond_1ivor,../functions/diamond.func,10,sppp,ivor
-diamond_2ivor,../functions/diamond.func,20,sppp,ivor
-diamond_3ivor,../functions/diamond.func,40,sppp,ivor
-diamond_4ivor,../functions/diamond.func,80,sppp,ivor
-diamond_5ivor,../functions/diamond.func,160,sppp,ivor
-diamond_6ivor,../functions/diamond.func,320,sppp,ivor
-diamond_7ivor,../functions/diamond.func,640,sppp,ivor
-diamond_8ivor,../functions/diamond.func,1280,sppp,ivor
-diamond_9ivor,../functions/diamond.func,2560,sppp,ivor
+diamond_1cvor,../functions/diamond.func,10,sppp,cvor
+diamond_2cvor,../functions/diamond.func,20,sppp,cvor
+diamond_3cvor,../functions/diamond.func,40,sppp,cvor
+diamond_4cvor,../functions/diamond.func,80,sppp,cvor
+diamond_5cvor,../functions/diamond.func,160,sppp,cvor
+diamond_6cvor,../functions/diamond.func,320,sppp,cvor
+diamond_7cvor,../functions/diamond.func,640,sppp,cvor
+diamond_8cvor,../functions/diamond.func,1280,sppp,cvor
+diamond_9cvor,../functions/diamond.func,2560,sppp,cvor
 
 diamond_1nzvor,../functions/diamond.func,10,sppp,nzvor
 diamond_2nzvor,../functions/diamond.func,20,sppp,nzvor
@@ -479,15 +479,15 @@ ellipse_7fvor,../functions/ellipse.func,640,sppp,fvor
 ellipse_8fvor,../functions/ellipse.func,1280,sppp,fvor
 ellipse_9fvor,../functions/ellipse.func,2560,sppp,fvor
 
-ellipse_1ivor,../functions/ellipse.func,10,sppp,ivor
-ellipse_2ivor,../functions/ellipse.func,20,sppp,ivor
-ellipse_3ivor,../functions/ellipse.func,40,sppp,ivor
-ellipse_4ivor,../functions/ellipse.func,80,sppp,ivor
-ellipse_5ivor,../functions/ellipse.func,160,sppp,ivor
-ellipse_6ivor,../functions/ellipse.func,320,sppp,ivor
-ellipse_7ivor,../functions/ellipse.func,640,sppp,ivor
-ellipse_8ivor,../functions/ellipse.func,1280,sppp,ivor
-ellipse_9ivor,../functions/ellipse.func,2560,sppp,ivor
+ellipse_1cvor,../functions/ellipse.func,10,sppp,cvor
+ellipse_2cvor,../functions/ellipse.func,20,sppp,cvor
+ellipse_3cvor,../functions/ellipse.func,40,sppp,cvor
+ellipse_4cvor,../functions/ellipse.func,80,sppp,cvor
+ellipse_5cvor,../functions/ellipse.func,160,sppp,cvor
+ellipse_6cvor,../functions/ellipse.func,320,sppp,cvor
+ellipse_7cvor,../functions/ellipse.func,640,sppp,cvor
+ellipse_8cvor,../functions/ellipse.func,1280,sppp,cvor
+ellipse_9cvor,../functions/ellipse.func,2560,sppp,cvor
 
 ellipse_1nzvor,../functions/ellipse.func,10,sppp,nzvor
 ellipse_2nzvor,../functions/ellipse.func,20,sppp,nzvor
@@ -529,15 +529,15 @@ fractal1_7fvor,../functions/fractal1.func,640,sppp,fvor
 fractal1_8fvor,../functions/fractal1.func,1280,sppp,fvor
 fractal1_9fvor,../functions/fractal1.func,2560,sppp,fvor
 
-fractal1_1ivor,../functions/fractal1.func,10,sppp,ivor
-fractal1_2ivor,../functions/fractal1.func,20,sppp,ivor
-fractal1_3ivor,../functions/fractal1.func,40,sppp,ivor
-fractal1_4ivor,../functions/fractal1.func,80,sppp,ivor
-fractal1_5ivor,../functions/fractal1.func,160,sppp,ivor
-fractal1_6ivor,../functions/fractal1.func,320,sppp,ivor
-fractal1_7ivor,../functions/fractal1.func,640,sppp,ivor
-fractal1_8ivor,../functions/fractal1.func,1280,sppp,ivor
-fractal1_9ivor,../functions/fractal1.func,2560,sppp,ivor
+fractal1_1cvor,../functions/fractal1.func,10,sppp,cvor
+fractal1_2cvor,../functions/fractal1.func,20,sppp,cvor
+fractal1_3cvor,../functions/fractal1.func,40,sppp,cvor
+fractal1_4cvor,../functions/fractal1.func,80,sppp,cvor
+fractal1_5cvor,../functions/fractal1.func,160,sppp,cvor
+fractal1_6cvor,../functions/fractal1.func,320,sppp,cvor
+fractal1_7cvor,../functions/fractal1.func,640,sppp,cvor
+fractal1_8cvor,../functions/fractal1.func,1280,sppp,cvor
+fractal1_9cvor,../functions/fractal1.func,2560,sppp,cvor
 
 fractal1_1nzvor,../functions/fractal1.func,10,sppp,nzvor
 fractal1_2nzvor,../functions/fractal1.func,20,sppp,nzvor
@@ -579,15 +579,15 @@ fractal2_7fvor,../functions/fractal2.func,640,sppp,fvor
 fractal2_8fvor,../functions/fractal2.func,1280,sppp,fvor
 fractal2_9fvor,../functions/fractal2.func,2560,sppp,fvor
 
-fractal2_1ivor,../functions/fractal2.func,10,sppp,ivor
-fractal2_2ivor,../functions/fractal2.func,20,sppp,ivor
-fractal2_3ivor,../functions/fractal2.func,40,sppp,ivor
-fractal2_4ivor,../functions/fractal2.func,80,sppp,ivor
-fractal2_5ivor,../functions/fractal2.func,160,sppp,ivor
-fractal2_6ivor,../functions/fractal2.func,320,sppp,ivor
-fractal2_7ivor,../functions/fractal2.func,640,sppp,ivor
-fractal2_8ivor,../functions/fractal2.func,1280,sppp,ivor
-fractal2_9ivor,../functions/fractal2.func,2560,sppp,ivor
+fractal2_1cvor,../functions/fractal2.func,10,sppp,cvor
+fractal2_2cvor,../functions/fractal2.func,20,sppp,cvor
+fractal2_3cvor,../functions/fractal2.func,40,sppp,cvor
+fractal2_4cvor,../functions/fractal2.func,80,sppp,cvor
+fractal2_5cvor,../functions/fractal2.func,160,sppp,cvor
+fractal2_6cvor,../functions/fractal2.func,320,sppp,cvor
+fractal2_7cvor,../functions/fractal2.func,640,sppp,cvor
+fractal2_8cvor,../functions/fractal2.func,1280,sppp,cvor
+fractal2_9cvor,../functions/fractal2.func,2560,sppp,cvor
 
 fractal2_1nzvor,../functions/fractal2.func,10,sppp,nzvor
 fractal2_2nzvor,../functions/fractal2.func,20,sppp,nzvor
@@ -629,15 +629,15 @@ hard1_7fvor,../functions/hard1.func,640,sppp,fvor
 hard1_8fvor,../functions/hard1.func,1280,sppp,fvor
 hard1_9fvor,../functions/hard1.func,2560,sppp,fvor
 
-hard1_1ivor,../functions/hard1.func,10,sppp,ivor
-hard1_2ivor,../functions/hard1.func,20,sppp,ivor
-hard1_3ivor,../functions/hard1.func,40,sppp,ivor
-hard1_4ivor,../functions/hard1.func,80,sppp,ivor
-hard1_5ivor,../functions/hard1.func,160,sppp,ivor
-hard1_6ivor,../functions/hard1.func,320,sppp,ivor
-hard1_7ivor,../functions/hard1.func,640,sppp,ivor
-hard1_8ivor,../functions/hard1.func,1280,sppp,ivor
-hard1_9ivor,../functions/hard1.func,2560,sppp,ivor
+hard1_1cvor,../functions/hard1.func,10,sppp,cvor
+hard1_2cvor,../functions/hard1.func,20,sppp,cvor
+hard1_3cvor,../functions/hard1.func,40,sppp,cvor
+hard1_4cvor,../functions/hard1.func,80,sppp,cvor
+hard1_5cvor,../functions/hard1.func,160,sppp,cvor
+hard1_6cvor,../functions/hard1.func,320,sppp,cvor
+hard1_7cvor,../functions/hard1.func,640,sppp,cvor
+hard1_8cvor,../functions/hard1.func,1280,sppp,cvor
+hard1_9cvor,../functions/hard1.func,2560,sppp,cvor
 
 hard1_1nzvor,../functions/hard1.func,10,sppp,nzvor
 hard1_2nzvor,../functions/hard1.func,20,sppp,nzvor
@@ -679,15 +679,15 @@ hard2_7fvor,../functions/hard2.func,640,sppp,fvor
 hard2_8fvor,../functions/hard2.func,1280,sppp,fvor
 hard2_9fvor,../functions/hard2.func,2560,sppp,fvor
 
-hard2_1ivor,../functions/hard2.func,10,sppp,ivor
-hard2_2ivor,../functions/hard2.func,20,sppp,ivor
-hard2_3ivor,../functions/hard2.func,40,sppp,ivor
-hard2_4ivor,../functions/hard2.func,80,sppp,ivor
-hard2_5ivor,../functions/hard2.func,160,sppp,ivor
-hard2_6ivor,../functions/hard2.func,320,sppp,ivor
-hard2_7ivor,../functions/hard2.func,640,sppp,ivor
-hard2_8ivor,../functions/hard2.func,1280,sppp,ivor
-hard2_9ivor,../functions/hard2.func,2560,sppp,ivor
+hard2_1cvor,../functions/hard2.func,10,sppp,cvor
+hard2_2cvor,../functions/hard2.func,20,sppp,cvor
+hard2_3cvor,../functions/hard2.func,40,sppp,cvor
+hard2_4cvor,../functions/hard2.func,80,sppp,cvor
+hard2_5cvor,../functions/hard2.func,160,sppp,cvor
+hard2_6cvor,../functions/hard2.func,320,sppp,cvor
+hard2_7cvor,../functions/hard2.func,640,sppp,cvor
+hard2_8cvor,../functions/hard2.func,1280,sppp,cvor
+hard2_9cvor,../functions/hard2.func,2560,sppp,cvor
 
 hard2_1nzvor,../functions/hard2.func,10,sppp,nzvor
 hard2_2nzvor,../functions/hard2.func,20,sppp,nzvor
@@ -729,15 +729,15 @@ gaussian_7fvor,../functions/gaussian.func,640,sppp,fvor
 gaussian_8fvor,../functions/gaussian.func,1280,sppp,fvor
 gaussian_9fvor,../functions/gaussian.func,2560,sppp,fvor
 
-gaussian_1ivor,../functions/gaussian.func,10,sppp,ivor
-gaussian_2ivor,../functions/gaussian.func,20,sppp,ivor
-gaussian_3ivor,../functions/gaussian.func,40,sppp,ivor
-gaussian_4ivor,../functions/gaussian.func,80,sppp,ivor
-gaussian_5ivor,../functions/gaussian.func,160,sppp,ivor
-gaussian_6ivor,../functions/gaussian.func,320,sppp,ivor
-gaussian_7ivor,../functions/gaussian.func,640,sppp,ivor
-gaussian_8ivor,../functions/gaussian.func,1280,sppp,ivor
-gaussian_9ivor,../functions/gaussian.func,2560,sppp,ivor
+gaussian_1cvor,../functions/gaussian.func,10,sppp,cvor
+gaussian_2cvor,../functions/gaussian.func,20,sppp,cvor
+gaussian_3cvor,../functions/gaussian.func,40,sppp,cvor
+gaussian_4cvor,../functions/gaussian.func,80,sppp,cvor
+gaussian_5cvor,../functions/gaussian.func,160,sppp,cvor
+gaussian_6cvor,../functions/gaussian.func,320,sppp,cvor
+gaussian_7cvor,../functions/gaussian.func,640,sppp,cvor
+gaussian_8cvor,../functions/gaussian.func,1280,sppp,cvor
+gaussian_9cvor,../functions/gaussian.func,2560,sppp,cvor
 
 gaussian_1nzvor,../functions/gaussian.func,10,sppp,nzvor
 gaussian_2nzvor,../functions/gaussian.func,20,sppp,nzvor
