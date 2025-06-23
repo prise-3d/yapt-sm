@@ -23,12 +23,12 @@ print("Fonctions trouvées :", FUNCTIONS)
 rule all:
     input:
         "results/stats_summary.csv",
-        "results/plots_by_function/plot_unit_disk.png",
-        "results/plots_by_function/plot_f1.png",
+        "results/plots_by_function/plot_unit_disk.pdf",
+        "results/plots_by_function/plot_f1.pdf",
         "results/all_plots.pdf",
         "results/stats_summary.csv",
         "results/tables.md",
-        expand("results/plots_by_function/plot_{function}.png", function=FUNCTIONS)
+        expand("results/plots_by_function/plot_{function}.pdf", function=FUNCTIONS)
         
 
 # Rule to run yapt and process .exr files
@@ -53,7 +53,7 @@ rule run_yapt:
         mkdir -p results/times
 
         # Measure wall-clock time in seconds and store it
-        /usr/bin/time -f "%e" -o {output.timefile} {params.yapt}/yapt dir={params.tmpdir} {params.args}
+        /usr/bin/time -f "%e" -o {output.timefile} {params.yapt}/yapt width=100 dir={params.tmpdir} {params.args}
 
         # Find the single .exr file produced
         exr_file=$(find {params.tmpdir} -maxdepth 1 -name "*.exr" | head -n 1)
@@ -153,7 +153,7 @@ rule plot_stats:
         stats="results/stats_summary.csv",
         params=config.get("params_file", "params.csv")
     output:
-        "results/plots_by_function/plot_{function}.png"
+        "results/plots_by_function/plot_{function}.pdf"
     run:
         import matplotlib
         matplotlib.use("Agg")
@@ -349,7 +349,7 @@ from PIL import Image
 
 rule combine_plots:
     input:
-        expand("results/plots_by_function/plot_{function}.png", function=FUNCTIONS)
+        expand("results/plots_by_function/plot_{function}.pdf", function=FUNCTIONS)
     output:
         "results/all_plots.pdf"
     run:
