@@ -351,83 +351,114 @@ rule generate_markdown_tables:
         stats="results/stats_summary.csv",
         params=config.get("params_file", "params.csv")
     output:
-        "results/tables.md"
+        "results/tables.md",
+        "results/tables_summary.md"
     run:
         import pandas as pd
         import os
-        
+
         # Charger les données
         df_stats = pd.read_csv(input.stats)
         df_params = pd.read_csv(input.params)
         df_params.columns = df_params.columns.str.strip()
-        
+
         # Fusionner les données
         extra_cols = [col for col in df_params.columns if col != "name" and col not in df_stats.columns]
         df = pd.merge(df_stats, df_params[["name"] + extra_cols], on="name")
         df.columns = df.columns.str.strip()
-        
-        # Début du document Markdown
+
+        # Début du document Markdown complet
         md_content = [
             "# Résultats des intégrateurs par fonction",
             "",
             f"Rapport généré automatiquement à partir de {len(df)} configurations.",
             ""
         ]
-        
+
         # Pour chaque fonction
         functions = sorted(df["source"].unique())
-        
+
         for function_name in functions:
             df_function = df[df["source"] == function_name]
-            
+
             if df_function.empty:
                 continue
-                
+
             md_content.extend([
                 f"## Fonction: {function_name}",
                 ""
             ])
-            
+
             # Grouper par agrégateur
             aggregators = sorted(df_function["aggregator"].unique())
-            
+
             for aggregator in aggregators:
                 df_agg = df_function[df_function["aggregator"] == aggregator]
-                
+
                 if df_agg.empty:
                     continue
-                
+
                 md_content.extend([
                     f"### Agrégateur: {aggregator}",
                     ""
                 ])
-                
+
                 # En-tête du tableau
                 md_content.extend([
                     "| Sampler | SPP | Moyenne | Écart-type | Temps (s) |",
                     "|---------|-----|---------|------------|-----------|"
                 ])
-                
+
                 # Trier par sampler puis par spp
                 df_agg_sorted = df_agg.sort_values(["sampler", "spp"])
-                
+
                 for _, row in df_agg_sorted.iterrows():
                     sampler = row["sampler"]
                     spp = int(row["spp"])
                     avg = f"{row['avg']:.6f}"
                     stddev = f"{row['stddev']:.6f}"
                     time_val = f"{row['time']:.3f}"
-                    
+
                     md_content.append(f"| {sampler} | {spp} | {avg} | {stddev} | {time_val} |")
-                
+
                 md_content.append("")  # Ligne vide après chaque tableau
-        
-        # Écrire le fichier
+
+        # Écrire le fichier complet
         os.makedirs(os.path.dirname(output[0]), exist_ok=True)
         with open(output[0], 'w', encoding='utf-8') as f:
             f.write('\n'.join(md_content))
-        
+
         print(f"Fichier Markdown généré : {output[0]}")
+
+        # Génération du résumé tables_summary.md
+        summary_lines = [
+            "# Résumé des variances (StdDev) pour le SPP maximal",
+            "",
+            "| Fonction | StdDev MC | StdDev Vor |",
+            "|----------|-----------|------------|"
+        ]
+
+        for function_name in functions:
+            df_func = df[df["source"] == function_name]
+            if df_func.empty:
+                continue
+
+            # Trouver le SPP maximal pour cette fonction
+            max_spp = df_func["spp"].max()
+            df_max_spp = df_func[df_func["spp"] == max_spp]
+
+            # MC
+            stddev_mc = df_max_spp[df_max_spp["aggregator"] == "mc"]["stddev"]
+            stddev_mc_val = f"{stddev_mc.values[0]:.6f}" if not stddev_mc.empty else ""
+
+            # Vor
+            stddev_vor = df_max_spp[df_max_spp["aggregator"] == "vor"]["stddev"]
+            stddev_vor_val = f"{stddev_vor.values[0]:.6f}" if not stddev_vor.empty else ""
+
+            summary_lines.append(f"| {function_name} | {stddev_mc_val} | {stddev_vor_val} |")
+
+        with open(output[1], 'w', encoding='utf-8') as f:
+            f.write('\n'.join(summary_lines))
                
 
 rule clean:
