@@ -441,7 +441,7 @@ rule generate_markdown_tables:
         for function_name in functions:
             df_func = df[df["source"] == function_name]
             if df_func.empty:
-            continue
+                continue
 
             # Trouver le SPP maximal pour cette fonction
             max_spp = df_func["spp"].max()
