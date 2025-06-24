@@ -441,7 +441,7 @@ rule generate_markdown_tables:
         for function_name in functions:
             df_func = df[df["source"] == function_name]
             if df_func.empty:
-                continue
+            continue
 
             # Trouver le SPP maximal pour cette fonction
             max_spp = df_func["spp"].max()
@@ -450,12 +450,20 @@ rule generate_markdown_tables:
             # MC
             stddev_mc = df_max_spp[df_max_spp["aggregator"] == "mc"]["stddev"]
             stddev_mc_val = f"{stddev_mc.values[0]:.6f}" if not stddev_mc.empty else ""
+            time_mc = df_max_spp[df_max_spp["aggregator"] == "mc"]["time"]
+            time_mc_val = f"{time_mc.mean():.3f}" if not time_mc.empty else ""
 
             # Vor
             stddev_vor = df_max_spp[df_max_spp["aggregator"] == "vor"]["stddev"]
             stddev_vor_val = f"{stddev_vor.values[0]:.6f}" if not stddev_vor.empty else ""
+            time_vor = df_max_spp[df_max_spp["aggregator"] == "vor"]["time"]
+            time_vor_val = f"{time_vor.mean():.3f}" if not time_vor.empty else ""
 
-            summary_lines.append(f"| {function_name} | {stddev_mc_val} | {stddev_vor_val} |")
+            summary_lines.append(f"| {function_name} | {stddev_mc_val} | {stddev_vor_val} | {time_mc_val} | {time_vor_val} |")
+
+        # Update header for new columns
+        summary_lines[2] = "| Fonction | StdDev MC | StdDev Vor | Time MC | Time Vor |"
+        summary_lines[3] = "|----------|-----------|------------|---------|----------|"
 
         with open(output[1], 'w', encoding='utf-8') as f:
             f.write('\n'.join(summary_lines))
