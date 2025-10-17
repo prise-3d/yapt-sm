@@ -11,6 +11,9 @@ FUNCTIONS = [
 configfile: "config.yaml"
 
 # Load paramètre CSV
+# 
+# A lancer avec :
+# snakemake --core 4 --config params_file=params.csv
 df = pd.read_csv(config["params_file"], index_col="name")
 df.columns = df.columns.str.strip()  # Nettoyage des espaces dans les noms de colonnes
 params = df.T.to_dict()

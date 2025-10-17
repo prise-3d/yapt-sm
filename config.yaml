@@ -1,5 +1,5 @@
 # path for the YAPT executable
-yapt_path: ~/git_prog/yapt/build
+yapt_path: ~/git_prog/yapt/build-function
 
 # path for the YAPT functions
 function_path: ~/git_prog/yapt/functions
@@ -8,5 +8,5 @@ function_path: ~/git_prog/yapt/functions
 output_image_path: images
 
 # params file
-params_files: params.csv
+params_files: params_mini.csv
 
