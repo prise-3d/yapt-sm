@@ -1,4 +1,5 @@
 name,source,spp,sampler,aggregator
+
 gaussian_1mc,../functions/gaussian.func,10,rnd,mc
 gaussian_2mc,../functions/gaussian.func,20,rnd,mc
 gaussian_3mc,../functions/gaussian.func,40,rnd,mc
@@ -39,16 +40,15 @@ gaussian_7cvor,../functions/gaussian.func,640,sppp,cvor
 gaussian_8cvor,../functions/gaussian.func,1280,sppp,cvor
 gaussian_9cvor,../functions/gaussian.func,2560,sppp,cvor
 
-
-gaussian_1mc,../functions/gaussian.func,10,rnd,mc
-gaussian_2mc,../functions/gaussian.func,20,rnd,mc
-gaussian_3mc,../functions/gaussian.func,40,rnd,mc
-gaussian_4mc,../functions/gaussian.func,80,rnd,mc
-gaussian_5mc,../functions/gaussian.func,160,rnd,mc
-gaussian_6mc,../functions/gaussian.func,320,rnd,mc
-gaussian_7mc,../functions/gaussian.func,640,rnd,mc
-gaussian_8mc,../functions/gaussian.func,1280,rnd,mc
-gaussian_9mc,../functions/gaussian.func,2560,rnd,mc
+gt_1mc,../functions/gt.func,10,rnd,mc
+gt_2mc,../functions/gt.func,20,rnd,mc
+gt_3mc,../functions/gt.func,40,rnd,mc
+gt_4mc,../functions/gt.func,80,rnd,mc
+gt_5mc,../functions/gt.func,160,rnd,mc
+gt_6mc,../functions/gt.func,320,rnd,mc
+gt_7mc,../functions/gt.func,640,rnd,mc
+gt_8mc,../functions/gt.func,1280,rnd,mc
+gt_9mc,../functions/gt.func,2560,rnd,mc
 
 gt_1vor,../functions/gt.func,10,sppp,vor
 gt_2vor,../functions/gt.func,20,sppp,vor
