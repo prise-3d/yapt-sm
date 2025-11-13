@@ -46,7 +46,7 @@ rule run_yapt:
             f"aggregator={params[wildcards.name]['aggregator']} "                    
         )
     shell:
-        r"""
+        """
         set -x
         mkdir -p {params.tmpdir}
         mkdir -p {config[output_image_path]}
