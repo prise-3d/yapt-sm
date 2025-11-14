@@ -466,13 +466,13 @@ rule generate_markdown_tables:
             stddev_cvor = df_max_spp[df_max_spp["aggregator"] == "cvor"]["stddev"]
             stddev_cvor_val = f"{stddev_cvor.values[0]:.6f}" if not stddev_cvor.empty else ""
             time_cvor = df_max_spp[df_max_spp["aggregator"] == "cvor"]["time"]
-            time_cvor_val = f"{time_vor.mean():.3f}" if not time_cvor.empty else ""
+            time_cvor_val = f"{time_cvor.mean():.3f}" if not time_cvor.empty else ""
 
             # FVor
             stddev_fvor = df_max_spp[df_max_spp["aggregator"] == "fvor"]["stddev"]
-            stddev_fvor_val = f"{stddev_cvor.values[0]:.6f}" if not stddev_fvor.empty else ""
+            stddev_fvor_val = f"{stddev_fvor.values[0]:.6f}" if not stddev_fvor.empty else ""
             time_fvor = df_max_spp[df_max_spp["aggregator"] == "fvor"]["time"]
-            time_fvor_val = f"{time_vor.mean():.3f}" if not time_fvor.empty else ""
+            time_fvor_val = f"{time_fvor.mean():.3f}" if not time_fvor.empty else ""
 
             summary_lines.append(f"| {function_name} | {stddev_mc_val} | {stddev_vor_val} | {stddev_cvor_val} | {stddev_fvor_val} |{time_mc_val} | {time_vor_val} | {time_cvor_val} | {time_fvor_val} | ")
 
