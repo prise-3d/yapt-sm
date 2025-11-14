@@ -231,6 +231,7 @@ rule plot_variance:
                                     sub_group["avg"] - sub_group["stddev"],
                                     sub_group["avg"] + sub_group["stddev"],
                                     alpha=0.3)
+                fig_title = aggregator                                    
                 if not mc_df.empty:
                     for aggregator, sub_group in mc_df.groupby("aggregator"):
                         sub_group = sub_group.sort_values("spp")
@@ -239,13 +240,14 @@ rule plot_variance:
                                         sub_group["avg"] - sub_group["stddev"],
                                         sub_group["avg"] + sub_group["stddev"],
                                         alpha=0.15)
-                ax.set_title(f"Mean - Aggregator: {aggregator}")
+                ax.set_title(f"{fig_title} vs MC")
                 ax.set_xscale("log")
-                ax.set_xlabel("Samples per pixel (SPP)")
+                ax.set_xlabel("Number of samples")
                 ax.set_ylabel("Mean")
                 ax.grid(True)
-                ax.legend()
-            fig.suptitle(f"Mean vs SPP by Aggregator — Function: {function_name}\n(mc shown on all)", fontsize=14)
+                ax.legend()                
+            fig.suptitle(f"Dispersion of Voronoi and MC Estimators", fontsize=14)
+            #fig.suptitle(f"Performance comparison  {function_name}\n(mc shown on all)", fontsize=14)
             fig.tight_layout(rect=[0, 0.03, 1, 0.95])
 
         os.makedirs(os.path.dirname(output[0]), exist_ok=True)
