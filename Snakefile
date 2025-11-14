@@ -477,8 +477,8 @@ rule generate_markdown_tables:
             summary_lines.append(f"| {function_name} | {stddev_mc_val} | {stddev_vor_val} | {stddev_cvor_val} | {stddev_fvor_val} |{time_mc_val} | {time_vor_val} | {time_cvor_val} | {time_fvor_val} | ")
 
         # Update header for new columns
-        summary_lines[2] = "| Fonction | StdDev MC | StdDev Vor | StdDev MC | StdDev CVor | Time FVor | Time Vor | Time CVor | Time FVor |"
-        summary_lines[3] = "|----------|-----------|------------|-----------|-------------|-----------|----------|-----------|-----------|"
+        summary_lines[2] = "| Fonction | StdDev MC | StdDev Vor | StdDev CVor | StdDev FVor | Time MC | Time Vor | Time CVor | Time FVor |"
+        summary_lines[3] = "|----------|-----------|------------|-------------|-------------|---------|----------|-----------|-----------|"
 
         with open(output[1], 'w', encoding='utf-8') as f:
             f.write('\n'.join(summary_lines))
