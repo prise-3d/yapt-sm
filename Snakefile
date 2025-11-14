@@ -462,11 +462,23 @@ rule generate_markdown_tables:
             time_vor = df_max_spp[df_max_spp["aggregator"] == "vor"]["time"]
             time_vor_val = f"{time_vor.mean():.3f}" if not time_vor.empty else ""
 
-            summary_lines.append(f"| {function_name} | {stddev_mc_val} | {stddev_vor_val} | {time_mc_val} | {time_vor_val} |")
+            # CVor
+            stddev_cvor = df_max_spp[df_max_spp["aggregator"] == "cvor"]["stddev"]
+            stddev_cvor_val = f"{stddev_cvor.values[0]:.6f}" if not stddev_cvor.empty else ""
+            time_cvor = df_max_spp[df_max_spp["aggregator"] == "cvor"]["time"]
+            time_cvor_val = f"{time_vor.mean():.3f}" if not time_cvor.empty else ""
+
+            # FVor
+            stddev_fvor = df_max_spp[df_max_spp["aggregator"] == "fvor"]["stddev"]
+            stddev_fvor_val = f"{stddev_cvor.values[0]:.6f}" if not stddev_fvor.empty else ""
+            time_fvor = df_max_spp[df_max_spp["aggregator"] == "fvor"]["time"]
+            time_fvor_val = f"{time_vor.mean():.3f}" if not time_fvor.empty else ""
+
+            summary_lines.append(f"| {function_name} | {stddev_mc_val} | {stddev_vor_val} | {stddev_cvor_val} | {stddev_fvor_val} |{time_mc_val} | {time_vor_val} | {time_cvor_val} | {time_fvor_val} | ")
 
         # Update header for new columns
-        summary_lines[2] = "| Fonction | StdDev MC | StdDev Vor | Time MC | Time Vor |"
-        summary_lines[3] = "|----------|-----------|------------|---------|----------|"
+        summary_lines[2] = "| Fonction | StdDev MC | StdDev Vor | StdDev MC | StdDev CVor | Time FVor | Time Vor | Time CVor | Time FVor |"
+        summary_lines[3] = "|----------|-----------|------------|-----------|-------------|-----------|----------|-----------|-----------|"
 
         with open(output[1], 'w', encoding='utf-8') as f:
             f.write('\n'.join(summary_lines))
