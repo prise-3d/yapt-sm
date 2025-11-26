@@ -396,11 +396,11 @@ rule plot_link:
             ax.set_title(f"Time vs Variance - Function: {function_name}")
             ax.set_xlabel("Variance (StdDev)")
             ax.set_ylabel("Time (seconds)")
-            ax.set_xscale("log")
+            ax.set_yscale("log")
             ax.grid(True)
             for aggregator, sub_group in df_filtered.groupby("aggregator"):
                 sub_group = sub_group.sort_values("stddev")
-                sns.lineplot(ax=ax, x="time", y="stddev", data=sub_group, marker="o", label=f"{aggregator}")
+                sns.lineplot(ax=ax, x="stddev", y="time", data=sub_group, marker="o", label=f"{aggregator}")
 
         os.makedirs(os.path.dirname(output[0]), exist_ok=True)
         fig.savefig(output[0], dpi=150, bbox_inches='tight')
