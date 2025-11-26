@@ -1,11 +1,11 @@
 import pandas as pd
 
 import os
-FUNCTIONS = [
-    "unit_disk", "f1", "f2", "disturbed_disk", "diamond",
-    "periodical1", "periodical2", "periodical3", "periodical4",
-    "gaussian", "ellipse", "fractal1", "fractal2", "hard1", "hard2"
-]
+#FUNCTIONS = [
+#    "unit_disk", "f1", "f2", "disturbed_disk", "diamond",
+#    "periodical1", "periodical2", "periodical3", "periodical4",
+#    "gaussian", "ellipse", "fractal1", "fractal2", "hard1", "hard2"
+#]
 
 # Configuration
 configfile: "config.yaml"
@@ -28,7 +28,8 @@ rule all:
         "results/stats_summary.csv",
         "results/tables.md",
         expand("results/plots_by_function/plot_variance_{function}.pdf", function=FUNCTIONS),
-        expand("results/plots_by_function/plot_time_{function}.pdf", function=FUNCTIONS)
+        expand("results/plots_by_function/plot_time_{function}.pdf", function=FUNCTIONS),
+        expand("results/plots_by_function/plot_link_{function}.pdf", function=FUNCTIONS)
         
 
 # Rule to run yapt and process .exr files
@@ -348,7 +349,61 @@ rule plot_time:
         fig.savefig(output[0], dpi=150, bbox_inches='tight')
         plt.close(fig)
 
+rule plot_link:
+    input:
+        stats="results/stats_summary.csv",
+        params=config.get("params_file", "params.csv")
+    output:
+        "results/plots_by_function/plot_link_{function}.pdf"
 
+    run:
+        print(f"→ Generating time vs variance plot for function: {wildcards.function}") 
+        import matplotlib
+        matplotlib.use("Agg")
+
+        import pandas as pd
+        import seaborn as sns
+        import matplotlib.pyplot as plt
+        import os
+        import math
+
+        function_name = wildcards.function
+
+        # Load and merge
+        df_stats = pd.read_csv(input.stats)
+        df_params = pd.read_csv(input.params)
+        df_params.columns = df_params.columns.str.strip()
+        extra_cols = [col for col in df_params.columns if col != "name" and col not in df_stats.columns]
+        df = pd.merge(df_stats, df_params[["name"] + extra_cols], on="name")
+        df.columns = df.columns.str.strip()
+
+        # Filter by function name
+        df_filtered = df[df["source"] == function_name]
+        if df_filtered.empty:
+            df_filtered = df[df["source"].str.contains(function_name, case=False, na=False)]
+
+        df_filtered = df_filtered[df_filtered["spp"] > 10].sort_values("spp")
+
+        if df_filtered.empty:
+            fig, ax = plt.subplots(figsize=(10, 6))
+            ax.text(0.5, 0.5, f"Aucune donnée disponible\npour la fonction '{function_name}'", 
+                   ha='center', va='center', fontsize=16, 
+                   bbox=dict(boxstyle="round,pad=0.3", facecolor="lightgray"))
+            ax.set_title(f"Fonction: {function_name}", fontsize=14)
+            ax.axis('off')
+        else:
+            fig, ax = plt.subplots(figsize=(10, 6))
+            ax.set_title(f"Time vs Variance - Function: {function_name}")
+            ax.set_xlabel("Variance (StdDev)")
+            ax.set_ylabel("Time (seconds)")
+            ax.grid(True)
+            for aggregator, sub_group in df_filtered.groupby("aggregator"):
+                sub_group = sub_group.sort_values("stddev")
+                sns.lineplot(ax=ax, x="stddev", y="time", data=sub_group, marker="o", label=f"{aggregator}")
+
+        os.makedirs(os.path.dirname(output[0]), exist_ok=True)
+        fig.savefig(output[0], dpi=150, bbox_inches='tight')
+        plt.close(fig)
   
 
 rule generate_markdown_tables:
