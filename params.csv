@@ -23,17 +23,17 @@ bench_discontinuity_9vor,../functions/bench_discontinuity.func,4096,sppp,vor
 bench_discontinuity_10vor,../functions/bench_discontinuity.func,8192,sppp,vor
 bench_discontinuity_11vor,../functions/bench_discontinuity.func,16384,sppp,vor
 
-bench_discontinuity_1cvor,../functions/bench_discontinuity.func,16,rnd,cvor
-bench_discontinuity_2cvor,../functions/bench_discontinuity.func,30,rnd,cvor
-bench_discontinuity_3cvor,../functions/bench_discontinuity.func,64,rnd,cvor
-bench_discontinuity_4cvor,../functions/bench_discontinuity.func,128,rnd,cvor
-bench_discontinuity_5cvor,../functions/bench_discontinuity.func,256,rnd,cvor
-bench_discontinuity_6cvor,../functions/bench_discontinuity.func,512,rnd,cvor
-bench_discontinuity_7cvor,../functions/bench_discontinuity.func,1024,rnd,cvor
-bench_discontinuity_8cvor,../functions/bench_discontinuity.func,2048,rnd,cvor
-bench_discontinuity_9cvor,../functions/bench_discontinuity.func,4096,rnd,cvor
-bench_discontinuity_10cvor,../functions/bench_discontinuity.func,8192,rnd,cvor
-bench_discontinuity_11cvor,../functions/bench_discontinuity.func,16384,rnd,cvor
+bench_discontinuity_1cvor,../functions/bench_discontinuity.func,16,sppp,cvor
+bench_discontinuity_2cvor,../functions/bench_discontinuity.func,30,sppp,cvor
+bench_discontinuity_3cvor,../functions/bench_discontinuity.func,64,sppp,cvor
+bench_discontinuity_4cvor,../functions/bench_discontinuity.func,128,sppp,cvor
+bench_discontinuity_5cvor,../functions/bench_discontinuity.func,256,sppp,cvor
+bench_discontinuity_6cvor,../functions/bench_discontinuity.func,512,sppp,cvor
+bench_discontinuity_7cvor,../functions/bench_discontinuity.func,1024,sppp,cvor
+bench_discontinuity_8cvor,../functions/bench_discontinuity.func,2048,sppp,cvor
+bench_discontinuity_9cvor,../functions/bench_discontinuity.func,4096,sppp,cvor
+bench_discontinuity_10cvor,../functions/bench_discontinuity.func,8192,sppp,cvor
+bench_discontinuity_11cvor,../functions/bench_discontinuity.func,16384,sppp,cvor
 
 bench_discontinuity_1fvor,../functions/bench_discontinuity.func,16,sppp,fvor
 bench_discontinuity_2fvor,../functions/bench_discontinuity.func,30,sppp,fvor
@@ -72,17 +72,17 @@ bench_holder_0.01_9vor,../functions/bench_holder_0.01.func,4096,sppp,vor
 bench_holder_0.01_10vor,../functions/bench_holder_0.01.func,8192,sppp,vor
 bench_holder_0.01_11vor,../functions/bench_holder_0.01.func,16384,sppp,vor
 
-bench_holder_0.01_1cvor,../functions/bench_holder_0.01.func,16,rnd,cvor
-bench_holder_0.01_2cvor,../functions/bench_holder_0.01.func,32,rnd,cvor
-bench_holder_0.01_3cvor,../functions/bench_holder_0.01.func,64,rnd,cvor
-bench_holder_0.01_4cvor,../functions/bench_holder_0.01.func,128,rnd,cvor
-bench_holder_0.01_5cvor,../functions/bench_holder_0.01.func,256,rnd,cvor
-bench_holder_0.01_6cvor,../functions/bench_holder_0.01.func,512,rnd,cvor
-bench_holder_0.01_7cvor,../functions/bench_holder_0.01.func,1024,rnd,cvor
-bench_holder_0.01_8cvor,../functions/bench_holder_0.01.func,2048,rnd,cvor
-bench_holder_0.01_9cvor,../functions/bench_holder_0.01.func,4096,rnd,cvor
-bench_holder_0.01_10cvor,../functions/bench_holder_0.01.func,8192,rnd,cvor
-bench_holder_0.01_11cvor,../functions/bench_holder_0.01.func,16384,rnd,cvor
+bench_holder_0.01_1cvor,../functions/bench_holder_0.01.func,16,sppp,cvor
+bench_holder_0.01_2cvor,../functions/bench_holder_0.01.func,32,sppp,cvor
+bench_holder_0.01_3cvor,../functions/bench_holder_0.01.func,64,sppp,cvor
+bench_holder_0.01_4cvor,../functions/bench_holder_0.01.func,128,sppp,cvor
+bench_holder_0.01_5cvor,../functions/bench_holder_0.01.func,256,sppp,cvor
+bench_holder_0.01_6cvor,../functions/bench_holder_0.01.func,512,sppp,cvor
+bench_holder_0.01_7cvor,../functions/bench_holder_0.01.func,1024,sppp,cvor
+bench_holder_0.01_8cvor,../functions/bench_holder_0.01.func,2048,sppp,cvor
+bench_holder_0.01_9cvor,../functions/bench_holder_0.01.func,4096,sppp,cvor
+bench_holder_0.01_10cvor,../functions/bench_holder_0.01.func,8192,sppp,cvor
+bench_holder_0.01_11cvor,../functions/bench_holder_0.01.func,16384,sppp,cvor
 
 bench_holder_0.01_1fvor,../functions/bench_holder_0.01.func,16,sppp,fvor
 bench_holder_0.01_2fvor,../functions/bench_holder_0.01.func,32,sppp,fvor
@@ -120,17 +120,17 @@ bench_holder_0.1_9vor,../functions/bench_holder_0.1.func,4096,sppp,vor
 bench_holder_0.1_10vor,../functions/bench_holder_0.1.func,8192,sppp,vor
 bench_holder_0.1_11vor,../functions/bench_holder_0.1.func,16384,sppp,vor
 
-bench_holder_0.1_1cvor,../functions/bench_holder_0.1.func,16,rnd,cvor
-bench_holder_0.1_2cvor,../functions/bench_holder_0.1.func,32,rnd,cvor
-bench_holder_0.1_3cvor,../functions/bench_holder_0.1.func,64,rnd,cvor
-bench_holder_0.1_4cvor,../functions/bench_holder_0.1.func,128,rnd,cvor
-bench_holder_0.1_5cvor,../functions/bench_holder_0.1.func,256,rnd,cvor
-bench_holder_0.1_6cvor,../functions/bench_holder_0.1.func,512,rnd,cvor
-bench_holder_0.1_7cvor,../functions/bench_holder_0.1.func,1024,rnd,cvor
-bench_holder_0.1_8cvor,../functions/bench_holder_0.1.func,2048,rnd,cvor
-bench_holder_0.1_9cvor,../functions/bench_holder_0.1.func,4096,rnd,cvor
-bench_holder_0.1_10cvor,../functions/bench_holder_0.1.func,8192,rnd,cvor
-bench_holder_0.1_11cvor,../functions/bench_holder_0.1.func,16384,rnd,cvor
+bench_holder_0.1_1cvor,../functions/bench_holder_0.1.func,16,sppp,cvor
+bench_holder_0.1_2cvor,../functions/bench_holder_0.1.func,32,sppp,cvor
+bench_holder_0.1_3cvor,../functions/bench_holder_0.1.func,64,sppp,cvor
+bench_holder_0.1_4cvor,../functions/bench_holder_0.1.func,128,sppp,cvor
+bench_holder_0.1_5cvor,../functions/bench_holder_0.1.func,256,sppp,cvor
+bench_holder_0.1_6cvor,../functions/bench_holder_0.1.func,512,sppp,cvor
+bench_holder_0.1_7cvor,../functions/bench_holder_0.1.func,1024,sppp,cvor
+bench_holder_0.1_8cvor,../functions/bench_holder_0.1.func,2048,sppp,cvor
+bench_holder_0.1_9cvor,../functions/bench_holder_0.1.func,4096,sppp,cvor
+bench_holder_0.1_10cvor,../functions/bench_holder_0.1.func,8192,sppp,cvor
+bench_holder_0.1_11cvor,../functions/bench_holder_0.1.func,16384,sppp,cvor
 
 bench_holder_0.1_1fvor,../functions/bench_holder_0.1.func,16,sppp,fvor
 bench_holder_0.1_2fvor,../functions/bench_holder_0.1.func,32,sppp,fvor
@@ -168,17 +168,17 @@ bench_holder_0.5_9vor,../functions/bench_holder_0.5.func,4096,sppp,vor
 bench_holder_0.5_10vor,../functions/bench_holder_0.5.func,8192,sppp,vor
 bench_holder_0.5_11vor,../functions/bench_holder_0.5.func,16384,sppp,vor
 
-bench_holder_0.5_1cvor,../functions/bench_holder_0.5.func,16,rnd,cvor
-bench_holder_0.5_2cvor,../functions/bench_holder_0.5.func,32,rnd,cvor
-bench_holder_0.5_3cvor,../functions/bench_holder_0.5.func,64,rnd,cvor
-bench_holder_0.5_4cvor,../functions/bench_holder_0.5.func,128,rnd,cvor
-bench_holder_0.5_5cvor,../functions/bench_holder_0.5.func,256,rnd,cvor
-bench_holder_0.5_6cvor,../functions/bench_holder_0.5.func,512,rnd,cvor
-bench_holder_0.5_7cvor,../functions/bench_holder_0.5.func,1024,rnd,cvor
-bench_holder_0.5_8cvor,../functions/bench_holder_0.5.func,2048,rnd,cvor
-bench_holder_0.5_9cvor,../functions/bench_holder_0.5.func,4096,rnd,cvor
-bench_holder_0.5_10cvor,../functions/bench_holder_0.5.func,8192,rnd,cvor
-bench_holder_0.5_11cvor,../functions/bench_holder_0.5.func,16384,rnd,cvor
+bench_holder_0.5_1cvor,../functions/bench_holder_0.5.func,16,sppp,cvor
+bench_holder_0.5_2cvor,../functions/bench_holder_0.5.func,32,sppp,cvor
+bench_holder_0.5_3cvor,../functions/bench_holder_0.5.func,64,sppp,cvor
+bench_holder_0.5_4cvor,../functions/bench_holder_0.5.func,128,sppp,cvor
+bench_holder_0.5_5cvor,../functions/bench_holder_0.5.func,256,sppp,cvor
+bench_holder_0.5_6cvor,../functions/bench_holder_0.5.func,512,sppp,cvor
+bench_holder_0.5_7cvor,../functions/bench_holder_0.5.func,1024,sppp,cvor
+bench_holder_0.5_8cvor,../functions/bench_holder_0.5.func,2048,sppp,cvor
+bench_holder_0.5_9cvor,../functions/bench_holder_0.5.func,4096,sppp,cvor
+bench_holder_0.5_10cvor,../functions/bench_holder_0.5.func,8192,sppp,cvor
+bench_holder_0.5_11cvor,../functions/bench_holder_0.5.func,16384,sppp,cvor
 
 bench_holder_0.5_1fvor,../functions/bench_holder_0.5.func,16,sppp,fvor
 bench_holder_0.5_2fvor,../functions/bench_holder_0.5.func,32,sppp,fvor
@@ -216,17 +216,17 @@ bench_holder_1_9vor,../functions/bench_holder_1.func,4096,sppp,vor
 bench_holder_1_10vor,../functions/bench_holder_1.func,8192,sppp,vor
 bench_holder_1_11vor,../functions/bench_holder_1.func,16384,sppp,vor
 
-bench_holder_1_1cvor,../functions/bench_holder_1.func,16,rnd,cvor
-bench_holder_1_2cvor,../functions/bench_holder_1.func,32,rnd,cvor
-bench_holder_1_3cvor,../functions/bench_holder_1.func,64,rnd,cvor
-bench_holder_1_4cvor,../functions/bench_holder_1.func,128,rnd,cvor
-bench_holder_1_5cvor,../functions/bench_holder_1.func,256,rnd,cvor
-bench_holder_1_6cvor,../functions/bench_holder_1.func,512,rnd,cvor
-bench_holder_1_7cvor,../functions/bench_holder_1.func,1024,rnd,cvor
-bench_holder_1_8cvor,../functions/bench_holder_1.func,2048,rnd,cvor
-bench_holder_1_9cvor,../functions/bench_holder_1.func,4096,rnd,cvor
-bench_holder_1_10cvor,../functions/bench_holder_1.func,8192,rnd,cvor
-bench_holder_1_11cvor,../functions/bench_holder_1.func,16384,rnd,cvor
+bench_holder_1_1cvor,../functions/bench_holder_1.func,16,sppp,cvor
+bench_holder_1_2cvor,../functions/bench_holder_1.func,32,sppp,cvor
+bench_holder_1_3cvor,../functions/bench_holder_1.func,64,sppp,cvor
+bench_holder_1_4cvor,../functions/bench_holder_1.func,128,sppp,cvor
+bench_holder_1_5cvor,../functions/bench_holder_1.func,256,sppp,cvor
+bench_holder_1_6cvor,../functions/bench_holder_1.func,512,sppp,cvor
+bench_holder_1_7cvor,../functions/bench_holder_1.func,1024,sppp,cvor
+bench_holder_1_8cvor,../functions/bench_holder_1.func,2048,sppp,cvor
+bench_holder_1_9cvor,../functions/bench_holder_1.func,4096,sppp,cvor
+bench_holder_1_10cvor,../functions/bench_holder_1.func,8192,sppp,cvor
+bench_holder_1_11cvor,../functions/bench_holder_1.func,16384,sppp,cvor
 
 bench_holder_1_1fvor,../functions/bench_holder_1.func,16,sppp,fvor
 bench_holder_1_2fvor,../functions/bench_holder_1.func,32,sppp,fvor
@@ -264,17 +264,17 @@ bench_not_c1_9vor,../functions/bench_not_c1.func,4096,sppp,vor
 bench_not_c1_10vor,../functions/bench_not_c1.func,8192,sppp,vor
 bench_not_c1_11vor,../functions/bench_not_c1.func,16384,sppp,vor
 
-bench_not_c1_1cvor,../functions/bench_not_c1.func,16,rnd,cvor
-bench_not_c1_2cvor,../functions/bench_not_c1.func,32,rnd,cvor
-bench_not_c1_3cvor,../functions/bench_not_c1.func,64,rnd,cvor
-bench_not_c1_4cvor,../functions/bench_not_c1.func,128,rnd,cvor
-bench_not_c1_5cvor,../functions/bench_not_c1.func,256,rnd,cvor
-bench_not_c1_6cvor,../functions/bench_not_c1.func,512,rnd,cvor
-bench_not_c1_7cvor,../functions/bench_not_c1.func,1024,rnd,cvor
-bench_not_c1_8cvor,../functions/bench_not_c1.func,2048,rnd,cvor
-bench_not_c1_9cvor,../functions/bench_not_c1.func,4096,rnd,cvor
-bench_not_c1_10cvor,../functions/bench_not_c1.func,8192,rnd,cvor
-bench_not_c1_11cvor,../functions/bench_not_c1.func,16384,rnd,cvor
+bench_not_c1_1cvor,../functions/bench_not_c1.func,16,sppp,cvor
+bench_not_c1_2cvor,../functions/bench_not_c1.func,32,sppp,cvor
+bench_not_c1_3cvor,../functions/bench_not_c1.func,64,sppp,cvor
+bench_not_c1_4cvor,../functions/bench_not_c1.func,128,sppp,cvor
+bench_not_c1_5cvor,../functions/bench_not_c1.func,256,sppp,cvor
+bench_not_c1_6cvor,../functions/bench_not_c1.func,512,sppp,cvor
+bench_not_c1_7cvor,../functions/bench_not_c1.func,1024,sppp,cvor
+bench_not_c1_8cvor,../functions/bench_not_c1.func,2048,sppp,cvor
+bench_not_c1_9cvor,../functions/bench_not_c1.func,4096,sppp,cvor
+bench_not_c1_10cvor,../functions/bench_not_c1.func,8192,sppp,cvor
+bench_not_c1_11cvor,../functions/bench_not_c1.func,16384,sppp,cvor
 
 bench_not_c1_1fvor,../functions/bench_not_c1.func,16,sppp,fvor
 bench_not_c1_2fvor,../functions/bench_not_c1.func,32,sppp,fvor
