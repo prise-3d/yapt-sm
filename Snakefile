@@ -54,7 +54,7 @@ rule run_yapt:
         mkdir -p results/times
 
         # Measure wall-clock time in seconds and store it
-        /usr/bin/time -f "%e" -o {output.timefile} {params.yapt}/yapt width=100 threads=1 dir={params.tmpdir} {params.args}
+        /usr/bin/time -f "%e" -o {output.timefile} {params.yapt}/yapt width=2 threads=1 dir={params.tmpdir} {params.args}
 
         # Find the single .exr file produced
         exr_file=$(find {params.tmpdir} -maxdepth 1 -name "*.exr" | head -n 1)
