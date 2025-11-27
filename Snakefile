@@ -390,15 +390,16 @@ rule plot_link:
             ax.set_title(f"Fonction: {function_name}", fontsize=14)
             ax.axis('off')
         else:
+            df_filtered["variance"] = df_filtered["stddev"] * df_filtered["stddev"]
             fig, ax = plt.subplots(figsize=(10, 6))
             ax.set_title(f"Time vs Variance - Function: {function_name}")
             ax.set_xlabel("Time (seconds)")
-            ax.set_ylabel("Variance (StdDev^2)")
+            ax.set_ylabel("Variance")
             ax.set_xscale("log")
             ax.grid(True)
             for aggregator, sub_group in df_filtered.groupby("aggregator"):
                 sub_group = sub_group.sort_values("time")
-                sns.lineplot(ax=ax, x="time", y="stddev", data=sub_group, marker="o", label=f"{aggregator}")
+                sns.lineplot(ax=ax, x="time", y="variance", data=sub_group, marker="o", label=f"{aggregator}")
 
         os.makedirs(os.path.dirname(output[0]), exist_ok=True)
         fig.savefig(output[0], dpi=150, bbox_inches='tight')
