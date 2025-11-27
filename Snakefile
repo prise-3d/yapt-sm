@@ -1,11 +1,6 @@
 import pandas as pd
 
 import os
-#FUNCTIONS = [
-#    "unit_disk", "f1", "f2", "disturbed_disk", "diamond",
-#    "periodical1", "periodical2", "periodical3", "periodical4",
-#    "gaussian", "ellipse", "fractal1", "fractal2", "hard1", "hard2"
-#]
 
 # Configuration
 configfile: "config.yaml"
@@ -142,10 +137,13 @@ rule aggregate_stats:
             stats["source"] = os.path.splitext(os.path.basename(param["source"]))[0]
             stats["aggregator"] = param["aggregator"]
             stats["sampler"] = param["sampler"]
-            rows.append(stats)            
+            rows.append(stats)
+
+            # ajouter une colonne "precision" calculée comme (1 / (stddev * stddev))       
+            stats["precision"] = 1 / (stats["stddev"] * stats["stddev"]) if stats["stddev"] != 0 else float("nan")
 
         df = pd.DataFrame(rows)
-        df = df[["name", "source", "spp", "min", "max", "avg", "stddev", "time", "aggregator", "sampler"]]
+        df = df[["name", "source", "spp", "min", "max", "avg", "stddev", "time", "aggregator", "sampler", "precision"]]
         df.to_csv(output[0], index=False)
 
 
