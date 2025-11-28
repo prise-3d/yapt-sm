@@ -1,5 +1,5 @@
 # path for the YAPT executable
-yapt_path: ~/git_prog/yapt/build-function
+yapt_path: ~/git_prog/yapt/build_adaptive
 
 # path for the YAPT functions
 function_path: ~/git_prog/yapt/functions

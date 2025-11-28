@@ -498,44 +498,38 @@ rule generate_markdown_tables:
             "|----------|-----------|------------|"
         ]
 
+        # Get all unique aggregators from the data
+        all_aggregators = sorted(df["aggregator"].unique())
+        
+        # Build dynamic header
+        header_cols = ["Fonction"] + [f"StdDev {agg}" for agg in all_aggregators] + [f"Time {agg}" for agg in all_aggregators]
+        summary_lines[2] = "| " + " | ".join(header_cols) + " |"
+        summary_lines[3] = "|" + "|".join(["-" * (len(col) + 2) for col in header_cols]) + "|"
+        
         for function_name in functions:
             df_func = df[df["source"] == function_name]
             if df_func.empty:
                 continue
 
-            # Trouver le SPP maximal pour cette fonction
+            # Find max SPP for this function
             max_spp = df_func["spp"].max()
             df_max_spp = df_func[df_func["spp"] == max_spp]
 
-            # MC
-            stddev_mc = df_max_spp[df_max_spp["aggregator"] == "mc"]["stddev"]
-            stddev_mc_val = f"{stddev_mc.values[0]:.6f}" if not stddev_mc.empty else ""
-            time_mc = df_max_spp[df_max_spp["aggregator"] == "mc"]["time"]
-            time_mc_val = f"{time_mc.mean():.3f}" if not time_mc.empty else ""
+            row_values = [function_name]
+            
+            # Collect stddev values for all aggregators
+            for agg in all_aggregators:
+                stddev_agg = df_max_spp[df_max_spp["aggregator"] == agg]["stddev"]
+                stddev_val = f"{stddev_agg.values[0]:.6f}" if not stddev_agg.empty else ""
+                row_values.append(stddev_val)
+            
+            # Collect time values for all aggregators
+            for agg in all_aggregators:
+                time_agg = df_max_spp[df_max_spp["aggregator"] == agg]["time"]
+                time_val = f"{time_agg.mean():.3f}" if not time_agg.empty else ""
+                row_values.append(time_val)
 
-            # Vor
-            stddev_vor = df_max_spp[df_max_spp["aggregator"] == "vor"]["stddev"]
-            stddev_vor_val = f"{stddev_vor.values[0]:.6f}" if not stddev_vor.empty else ""
-            time_vor = df_max_spp[df_max_spp["aggregator"] == "vor"]["time"]
-            time_vor_val = f"{time_vor.mean():.3f}" if not time_vor.empty else ""
-
-            # CVor
-            stddev_cvor = df_max_spp[df_max_spp["aggregator"] == "cvor"]["stddev"]
-            stddev_cvor_val = f"{stddev_cvor.values[0]:.6f}" if not stddev_cvor.empty else ""
-            time_cvor = df_max_spp[df_max_spp["aggregator"] == "cvor"]["time"]
-            time_cvor_val = f"{time_cvor.mean():.3f}" if not time_cvor.empty else ""
-
-            # FVor
-            stddev_fvor = df_max_spp[df_max_spp["aggregator"] == "fvor"]["stddev"]
-            stddev_fvor_val = f"{stddev_fvor.values[0]:.6f}" if not stddev_fvor.empty else ""
-            time_fvor = df_max_spp[df_max_spp["aggregator"] == "fvor"]["time"]
-            time_fvor_val = f"{time_fvor.mean():.3f}" if not time_fvor.empty else ""
-
-            summary_lines.append(f"| {function_name} | {stddev_mc_val} | {stddev_vor_val} | {stddev_fvor_val} |{time_mc_val} | {time_vor_val} | {time_fvor_val} | ")
-
-        # Update header for new columns
-        summary_lines[2] = "| Fonction | StdDev MC | StdDev Vor | StdDev FVor | Time MC | Time Vor | Time FVor |"
-        summary_lines[3] = "|----------|-----------|------------|-------------|---------|----------|-----------|"
+            summary_lines.append("| " + " | ".join(row_values) + " |")
 
         with open(output[1], 'w', encoding='utf-8') as f:
             f.write('\n'.join(summary_lines))
