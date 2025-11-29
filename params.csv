@@ -300,4 +300,3 @@ bench_not_c1_6cvor,../functions/bench_not_c1.func,512,sppp,cvor
 bench_not_c1_7cvor,../functions/bench_not_c1.func,1024,sppp,cvor
 bench_not_c1_8cvor,../functions/bench_not_c1.func,2048,sppp,cvor
 bench_not_c1_9cvor,../functions/bench_not_c1.func,4096,sppp,cvor
-bench_not_c1_11cvor,../functions/bench_not_c1.func,16384,sppp,cvor
