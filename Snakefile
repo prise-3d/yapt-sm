@@ -476,7 +476,7 @@ rule generate_markdown_tables:
                     sampler = row["sampler"]
                     spp = int(row["spp"])
                     avg = f"{row['avg']:.6f}"
-                    stddev = f"{row['stddev']:.4g}"
+                    stddev = f"{row['stddev']:.5g}"
                     time_val = f"{row['time']:.3f}"
 
                     md_content.append(f"| {sampler} | {spp} | {avg} | {stddev} | {time_val} |")
@@ -520,7 +520,7 @@ rule generate_markdown_tables:
             # Collect stddev values for all aggregators
             for agg in all_aggregators:
                 stddev_agg = df_max_spp[df_max_spp["aggregator"] == agg]["stddev"]
-                stddev_val = f"{stddev_agg.values[0]:.6f}" if not stddev_agg.empty else ""
+                stddev_val = f"{stddev_agg.values[0]:.5g}" if not stddev_agg.empty else ""
                 row_values.append(stddev_val)
             
             # Collect time values for all aggregators
