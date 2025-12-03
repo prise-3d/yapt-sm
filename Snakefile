@@ -476,7 +476,7 @@ rule generate_markdown_tables:
                     sampler = row["sampler"]
                     spp = int(row["spp"])
                     avg = f"{row['avg']:.6f}"
-                    stddev = f"{row['stddev']:.6f}"
+                    stddev = f"{row['stddev']:.4g}"
                     time_val = f"{row['time']:.3f}"
 
                     md_content.append(f"| {sampler} | {spp} | {avg} | {stddev} | {time_val} |")
