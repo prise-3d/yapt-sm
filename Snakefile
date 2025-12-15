@@ -217,7 +217,7 @@ rule plot_variance:
             fig.tight_layout(rect=[0, 0.03, 1, 0.95])
         else:
             n = len(other_aggs)
-            cols = 2
+            cols = 1
             rows = math.ceil(n / cols)
             fig = plt.figure(figsize=(6 * cols, 4 * rows))
             for i, aggregator in enumerate(other_aggs):
