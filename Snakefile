@@ -397,9 +397,16 @@ rule plot_link:
             ax.set_ylabel("Variance")
             ax.set_xscale("log")
             ax.grid(True)
-            for aggregator, sub_group in df_filtered.groupby("aggregator"):
+            
+            markers = ['o', 's', '^', 'D', 'v', 'p', '*']
+            linestyles = ['-', '--', '-.', ':']
+            
+            for idx, (aggregator, sub_group) in enumerate(df_filtered.groupby("aggregator")):
                 sub_group = sub_group.sort_values("time")
-                sns.lineplot(ax=ax, x="time", y="variance", data=sub_group, marker="o", label=f"{aggregator}")
+                sns.lineplot(ax=ax, x="time", y="variance", data=sub_group, 
+                            marker=markers[idx % len(markers)],
+                            linestyle=linestyles[idx % len(linestyles)],
+                            label=f"{aggregator}")
 
         os.makedirs(os.path.dirname(output[0]), exist_ok=True)
         fig.savefig(output[0], dpi=150, bbox_inches='tight')
